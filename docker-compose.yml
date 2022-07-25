@@ -18,11 +18,11 @@ services:
       - ./pgdata:/var/lib/postgresql/data
   backend:
     container_name: backend
-    build: ./backend
+    build: ./backend/setup/
 #    command: bash -c "/start_prod.sh"
     command: sh -c "python manage.py migrate && gunicorn setup.wsgi -b 0.0.0.0:8000"
     volumes:
-      - ./backend:/code
+      - ./backend/setup/:/code
     ports:
       - "8000:8000" 
     networks:
