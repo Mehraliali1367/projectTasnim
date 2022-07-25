@@ -10,7 +10,7 @@
 # production stage
 FROM nginx
 COPY nginx/prod/prod.conf /etc/nginx/nginx.conf
-COPY backend/static /usr/src/app/static/
+COPY backend/setup/static /usr/src/app/static/
 # COPY --from=build-stage /app/dist /dist/
 #COPY front/dist /dist/
 EXPOSE 80
