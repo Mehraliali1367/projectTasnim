@@ -1,0 +1,120 @@
+{% if user.is_authenticated %}
+<li class="nav-item has-treeview">
+    <a href="#" class="nav-link">
+        <i class="nav-icon fa fa-plus-square-o"></i>
+        <p>
+            <i class="fa fa-angle-left right"></i>
+            کاربری
+        </p>
+    </a>
+    <ul class="nav nav-treeview">
+        <li class="nav-item">
+            <a href="{% url 'account:dashboard' user.serial %}" class="nav-link">
+                <i class="fa  fa-circle-o nav-icon"></i>
+                <p>داشبورد</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{% url 'account:profile' %}" class="nav-link">
+                <i class="fa  fa-circle-o nav-icon"></i>
+                <p>پروفایل</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{% url 'take_turns:visit' %}" class="nav-link">
+                <i class="fa  fa-circle-o nav-icon"></i>
+                <p>دریافت نوبت</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="" class="nav-link">
+                <i class="fa  fa-lock nav-icon"></i>
+                <p>تغییر رمز</p>
+            </a>
+        </li>
+    </ul>
+</li>
+{% else %}
+<li class="nav-item">
+    <a href="{% url 'account:login' %}" class="nav-link">
+        <i class="fa  fa-circle-o nav-icon"></i>
+        <p>ورود</p>
+    </a>
+</li>
+<li class="nav-item">
+    <a href="{% url 'account:register' %}" class="nav-link">
+        <i class="fa  fa-circle-o nav-icon"></i>
+        <p>ثبت نام</p>
+    </a>
+</li>
+<li class="nav-item">
+    <a href="{% url 'take_turns:visit' %}" class="nav-link">
+        <i class="fa  fa-circle-o nav-icon"></i>
+        <p>دریافت نوبت</p>
+    </a>
+</li>
+{% endif %}
+{% if  user.is_admin %}
+<li class="nav-item has-treeview">
+    <a href="#" class="nav-link">
+        <i class="nav-icon fa fa-plus-square-o"></i>
+        <p>
+            <i class="fa fa-angle-left right"></i>
+            نوبت دهی
+        </p>
+    </a>
+    <ul class="nav nav-treeview">
+        <li class="nav-item">
+            <a href="{% url 'take_turns:doctordifinit' %}" class="nav-link">
+                <i class="fa  fa-circle-o nav-icon"></i>
+                <p>تعریف پزشک</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{% url 'take_turns:presencedoctor' %}" class="nav-link">
+                <i class="fa  fa-circle-o nav-icon"></i>
+                <p>حضورپزشک</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{% url 'take_turns:getdoctors' %}" class="nav-link">
+                <i class="fa  fa-circle-o nav-icon"></i>
+                <p>حذف پزشک</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{% url 'take_turns:servicesdifinit' %}" class="nav-link">
+                <i class="fa  fa-circle-o nav-icon"></i>
+                <p>سرویس ها</p>
+            </a>
+        </li>
+
+    </ul>
+
+</li>
+
+<li class="nav-item has-treeview">
+    <a href="#" class="nav-link">
+        <i class="nav-icon fa fa-plus-square-o"></i>
+        <p>
+            <i class="fa fa-angle-left right"></i>
+            کاربر ارشد
+        </p>
+    </a>
+    <ul class="nav nav-treeview">
+        <li class="nav-item">
+            <a href="{% url 'account:search' %}" class="nav-link">
+                <i class="fa  fa-circle-o nav-icon"></i>
+                <p>جستجو کاربران</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{% url 'take_turns:searchـtakeـturns' %}" class="nav-link">
+                <i class="fa  fa-circle-o nav-icon"></i>
+                <p>نوبت های دریافت شده</p>
+            </a>
+        </li>
+    </ul>
+
+</li>
+{% endif %}

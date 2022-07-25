@@ -1,0 +1,193 @@
+{% extends 'inc/base.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'my_change/css/sweetalert.css' %}">
+{% endblock css %}
+
+{% block main %}
+<div class="col">
+    <div class="card card-danger">
+        <div class="card-header">
+            <h3 class="card-title">فرم جستجو کاربر</h3>
+        </div>
+        <form>
+            <div class="row m-2 p-3">
+                <div class="col-md-3 col-sm-4 col-8 ">
+                    {% csrf_token %}
+                    <label for="obj">جستجو</label>
+                    <input type="text" id="obj" class="form-control">
+                </div>
+                <div class="col-md-2 col-2 d-flex align-items-end ">
+                    <button class="btn btn-danger" id="btnobj" type="submit">جستجو</button>
+                </div>
+            </div>
+        </form>
+        <div class="row p-3">
+            <table id="tbluser"
+                   class="table table-bordered  text-align-center table-responsive-sm table-responsive-md">
+                <thead>
+                <tr>
+                    <th scope="col">ردیف</th>
+                    <th scope="col">سریال</th>
+                    <th scope="col">نام</th>
+                    <th scope="col">کدملی</th>
+                    <th scope="col">تاریخ تولد</th>
+                    <th scope="col">موبایل</th>
+                    <th scope="col">آدرس</th>
+                    <th scope="col">تاریخ عضویت</th>
+                    <th scope="col">درخواست</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock main %}
+
+{% block script %}
+<script type="text/javascript" src="{% static 'my_change/js/sweetalert.js' %}"></script>
+<script src="{% static 'my_change/js/axios.min.js' %}"></script>
+
+<script type="text/javascript">
+let txt=document.querySelector("#txtobj");
+let btn=document.querySelector("#btnobj");
+let tbl=document.querySelector("#tbluser");
+let count=0
+
+btndelete=document.querySelector('deleteuser')
+
+
+async function deluser(event) {
+    try{
+    const response =await axios.delete('/api/userdelete/',{params:{obj:event.target.getAttribute("deleteuser")}});
+    recive = response.data;
+    deleteRow()
+    getuser()
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'باموفقیت حذف شد!',
+                showConfirmButton: false,
+                timer: 2000
+                })
+    }catch (error) {
+        console.error(error);
+        Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: 'بامشکل مواجه شدید,دوباره سعی کنید!',
+                showConfirmButton: false,
+                timer: 2000
+        })
+    }
+}
+
+
+btn.addEventListener(
+'click',
+function(event) {
+    event.preventDefault()
+    deleteRow()
+    getuser()
+    });
+function deleteRow() {
+    count=0;
+    var tableHeaderRowCount = 1;
+    var table = document.getElementById('tbluser');
+    var rowCount = table.rows.length;
+    for (var i = tableHeaderRowCount; i < rowCount; i++) {
+        table.deleteRow(tableHeaderRowCount);
+    }
+}
+
+
+async function getuser() {
+    try {
+        const response = await axios.get('/api/users/',{params:{search:document.getElementById('obj').value}});
+        recive = response.data;
+        tbl.classList.add("table-bordered");
+        recive.forEach((item) => {
+            let tbody=document.createElement("tbody")
+            let tr=document.createElement("tr")
+
+            let tdnum=document.createElement("td")
+            let tdserial=document.createElement("td")
+            let tdname=document.createElement("td")
+            let tdmelli=document.createElement("td")
+            let tdbrithday=document.createElement("td")
+            let tdtel=document.createElement("td")
+            let tdadd=document.createElement("td")
+            let tddate=document.createElement("td")
+            let tdreq=document.createElement("td")
+            let btnedit=document.createElement("a")
+            let btndelete=document.createElement("a")
+
+            tdnum.setAttribute("scope","row")
+            count=count+1;
+
+            btnedit.className="btn btn-dark btn-sm p-2 text-light"
+            btnedit.textContent="ویرایش"
+            btnedit.setAttribute("serial",item.serial)
+            btnedit.setAttribute("href","/edit/?serial="+item.serial)
+            tdreq.appendChild(btnedit)
+
+            btndelete.className="btn btn-danger p-2 pr-3 pl-3 btn-sm text-light mr-2"
+            btndelete.textContent="حذف"
+            btndelete.setAttribute("deleteuser",item.serial)
+            btndelete.addEventListener('click', deluser);
+            tdreq.appendChild(btndelete)
+
+            tr.className="text-center"
+            tdnum.className="align-middle"
+            tdserial.className="align-middle"
+            tdname.className="align-middle"
+            tdmelli.className="align-middle"
+            tdbrithday.className="align-middle"
+            tdtel.className="align-middle"
+            tdadd.className="align-middle"
+            tddate.className="align-middle"
+
+            tdnum.textContent=count
+            tdserial.textContent=item.serial
+            tdname.textContent=item.full_name
+            tdmelli.textContent=item.melli
+            tdtel.textContent=item.tel
+            tdadd.textContent=item.place
+            tddate.textContent=item.date
+            console.log(item.date)
+            tdbrithday.textContent=item.brithday
+
+
+
+
+            tr.appendChild(tdnum)
+            tr.appendChild(tdserial)
+            tr.appendChild(tdname)
+            tr.appendChild(tdmelli)
+            tr.appendChild(tdbrithday)
+            tr.appendChild(tdtel)
+            tr.appendChild(tdadd)
+            tr.appendChild(tddate)
+            tr.appendChild(tdreq)
+
+            tbody.appendChild(tr)
+            tbl.appendChild(tbody)
+
+        });
+
+<!--        getID(recive);-->
+
+    } catch (error) {
+        console.error(error);
+        Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: 'بامشکل مواجه شدید,دوباره سعی کنید!',
+                showConfirmButton: false,
+                timer: 2000
+                })
+    }
+}
+</script>
+{% endblock script %}

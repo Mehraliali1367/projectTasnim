@@ -1,0 +1,41 @@
+{% extends 'inc/base.html' %}
+{% load static %}
+
+{% block css %}
+
+{% endblock css %}
+
+{% block main %}
+<div class="col">
+    <div class="card card-danger">
+        <div class="card-header">
+            <h3 class="card-title">فرم ثبت نام</h3>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-sm-6 col-12 m-3">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <h2 class="h2"></h2>
+                    {{form.as_p}}
+                    <input class="btn btn-danger" type="submit" value="ارسال">
+                </form>
+            </div>
+            <!--          <div class="col-md-6 m-4" style="background: linear-gradient(rgba(20, 20, 20, 0.5), rgba(20, 20, 20, 0.5)),url('{% static 'my_change/images/icon/icon6.jpeg' %}') no-repeat center center/cover;height: 100vh;padding:0%;"></div>-->
+            <div class="col-md-6 col-sm-6 m-4">
+                <img class="card-img" src="{% static 'my_change/images/icon/icon6.jpeg' %}">
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main %}
+<script type="text/javascript">
+{% block script %}
+  $(document).ready(function() {
+    $(".normal-example").pDatepicker({
+     format: 'YYYYMMDD',
+    });
+
+  });
+</script>
+
+{% endblock script %}

@@ -1,0 +1,15 @@
+{% extends 'inc/base.html' %}
+{% block main %}
+
+<p class="mb-3 mt-3">{{user.full_name}}</p>
+{% for img in user.images.all %}
+<img src="{{ img.image.url }}" style="height:200px;width:200px" >
+{% endfor %}
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% if user.is_authenticated and user.is_superuser %}
+    {{form.as_p}}
+    {% endif %}
+    <input type="submit" value="upload">
+</form>
+{% endblock main %}

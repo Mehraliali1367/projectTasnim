@@ -1,0 +1,65 @@
+/* اعداد را هم فارسی نمایش میدهد */
+@font-face {
+  font-family: Sahel;
+  src: url('Sahel-FD-WOL.eot');
+  src: url('Sahel-FD-WOL.eot?#iefix') format('embedded-opentype'),
+       url('Sahel-FD-WOL.woff2') format('woff2'),
+       url('Sahel-FD-WOL.woff') format('woff'),
+       url('Sahel-FD-WOL.ttf') format('truetype');
+  font-weight: bold;
+}
+
+table td {
+  position: relative;
+}
+
+table td input {
+  position: absolute;
+  display: block;
+  top:0;
+  left:0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  border: none;
+  padding: 10px;
+  box-sizing: border-box;
+}
+table td label {
+   
+  position: absolute;
+  display: block;
+  top:0;
+  left:0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  border: none;
+  padding: 10px;
+  box-sizing: border-box;
+
+}
+<style>
+.my-tbl-css  {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.my-tbl-css  td, .my-tbl-css  th {
+  border: 1px solid #ddd;
+  padding: 6px;
+}
+
+.my-tbl-css  tr:nth-child(even){background-color: #f2f2f2;}
+
+.my-tbl-css  tr:hover {background-color: #ddd;}
+
+.my-tbl-css  th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: #AC4F52;
+  color: white;
+}
+</style>

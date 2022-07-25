@@ -1,0 +1,181 @@
+{% extends 'inc/base.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'my_change/css/sweetalert.css' %}">
+{% endblock css %}
+
+{% block main %}
+<div class="col">
+    <div class="card card-danger">
+        <div class="card-header">
+            <h3 class="card-title">فرم جستجو کاربر</h3>
+        </div>
+        <form>
+            <div class="row m-2 p-3">
+                <div class="col-md-3 col-sm-4 col-8 ">
+                    {% csrf_token %}
+                    <label for="obj">جستجو</label>
+                    <input type="text" id="obj" class="form-control">
+                </div>
+                <div class="col-md-2 col-2 d-flex align-items-end ">
+                    <button class="btn btn-danger" id="btnobj" type="submit">جستجو</button>
+                </div>
+            </div>
+        </form>
+        <div class="row p-3">
+            <table id="tbluser"
+                   class="table table-bordered  text-align-center table-responsive-sm table-responsive-md">
+                <thead>
+                <tr>
+                    <th scope="col">ردیف</th>
+                    <th scope="col">نام پزشک</th>
+                    <th scope="col">سریال بیمار</th>
+                    <th scope="col">نام بیمار</th>
+                    <th scope="col">موبایل بیمار</th>
+                    <th scope="col">تاریخ</th>
+                    <th scope="col">ساعت</th>
+                    <th scope="col">درخواست</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock main %}
+
+{% block script %}
+<script type="text/javascript" src="{% static 'my_change/js/sweetalert.js' %}"></script>
+<script src="{% static 'my_change/js/axios.min.js' %}"></script>
+
+<script type="text/javascript">
+let txt=document.querySelector("#txtobj");
+let btn=document.querySelector("#btnobj");
+let tbl=document.querySelector("#tbluser");
+let count=0
+
+btndelete=document.querySelector('deleteuser')
+
+
+async function delnobat(event) {
+    try{
+    const response =await axios.delete('/del_take_turns_api/',{params:{obj:event.target.getAttribute("deletenobat")}});
+    recive = response.data;
+    deleteRow()
+    getuser()
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'باموفقیت حذف شد!',
+                showConfirmButton: false,
+                timer: 2000
+                })
+    }catch (error) {
+        console.error(error);
+        Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: 'بامشکل مواجه شدید,دوباره سعی کنید!',
+                showConfirmButton: false,
+                timer: 2000
+        })
+    }
+}
+
+
+btn.addEventListener(
+'click',
+function(event) {
+    event.preventDefault()
+    deleteRow()
+    getuser()
+    });
+
+function deleteRow() {
+    count=0;
+    var tableHeaderRowCount = 1;
+    var table = document.getElementById('tbluser');
+    var rowCount = table.rows.length;
+    for (var i = tableHeaderRowCount; i < rowCount; i++) {
+        table.deleteRow(tableHeaderRowCount);
+    }
+}
+
+
+async function getuser() {
+    try {
+        const response = await axios.get('/get_all_take_turns_api/',{params:{search:document.getElementById('obj').value}});
+        recive = response.data;
+        console.log(recive)
+        tbl.classList.add("table-bordered");
+        recive.forEach((item) => {
+            let tbody=document.createElement("tbody")
+            let tr=document.createElement("tr")
+
+            let tdnum=document.createElement("td")
+            let tddoctor=document.createElement("td")
+            let tdserial=document.createElement("td")
+            let tdname=document.createElement("td")
+            let tdtel=document.createElement("td")
+            let tddate=document.createElement("td")
+            let tdhour=document.createElement("td")
+            let btndelete=document.createElement("a")
+            let tdreq=document.createElement("td")
+
+            tdnum.setAttribute("scope","row")
+            count=count+1;
+
+            btndelete.className="btn btn-danger p-2 pr-3 pl-3 btn-sm text-light mr-2"
+            btndelete.textContent="حذف"
+            btndelete.setAttribute("deletenobat",item.id)
+            btndelete.addEventListener('click', delnobat);
+            tdreq.appendChild(btndelete)
+
+            tr.className="text-center"
+            tdnum.className="align-middle"
+            tddoctor.className="align-middle"
+            tdserial.className="align-middle"
+            tdname.className="align-middle"
+            tdtel.className="align-middle"
+            tddate.className="align-middle"
+            tdhour.className="align-middle"
+
+            tdnum.textContent=count
+            tdname.textContent=item.user.name
+            tdserial.textContent=item.user.serial
+            tddoctor.textContent=item.doctor.name
+            tdtel.textContent=item.user.tel
+            tdhour.textContent=item.hour
+            tddate.textContent=item.datetime_persian
+            console.log(item.date)
+
+            tr.appendChild(tdnum)
+            tr.appendChild(tddoctor)
+            tr.appendChild(tdserial)
+            tr.appendChild(tdname)
+            tr.appendChild(tdtel)
+            tr.appendChild(tddate)
+            tr.appendChild(tdhour)
+            tr.appendChild(tdreq)
+
+            tbody.appendChild(tr)
+            tbl.appendChild(tbody)
+
+        });
+
+<!--        getID(recive);-->
+
+    } catch (error) {
+        console.error(error);
+        Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: 'بامشکل مواجه شدید,دوباره سعی کنید!',
+                showConfirmButton: false,
+                timer: 2000
+                })
+    }
+}
+
+</script>
+{% endblock script %}

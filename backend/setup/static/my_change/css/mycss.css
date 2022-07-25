@@ -1,0 +1,82 @@
+/* اعداد را هم فارسی نمایش میدهد */
+@font-face {
+  font-family: Sahel;
+  src: url('Sahel-FD-WOL.eot');
+  src: url('Sahel-FD-WOL.eot?#iefix') format('embedded-opentype'),
+       url('Sahel-FD-WOL.woff2') format('woff2'),
+       url('Sahel-FD-WOL.woff') format('woff'),
+       url('Sahel-FD-WOL.ttf') format('truetype');
+  font-weight: bold;
+}
+
+table td {
+  position: relative;
+}
+
+table td input {
+  position: absolute;
+    display: block;
+  top:0;
+  left:0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  border: none;
+  padding: 10px;
+  box-sizing: border-box;
+}
+table td label {
+  background-color: #bbbcbf;
+  position: absolute;
+  display: block;
+  top:0;
+  left:0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  border: none;
+  padding: 10px;
+  box-sizing: border-box;
+
+}
+.popup-wrapper{
+position:fixed;
+top: 0;
+left: 0;
+height: 100%;
+width: 100%;
+background-color: rgba(0,0,0,0.5);
+z-index: 0 !important;
+}
+.popup{
+background-color: #fff;
+border: 1px solid #ddd;
+border-radious: 7px;
+position: fixed;
+left: 50%;
+transform: translateX(-50%)
+}
+.popup > h4,
+.popup > div
+{
+padding: 15px 20px;
+border-bottom: 1px solid #ddd;
+}
+.popup > h4 > span.popup-close:after{
+content: "\007"
+float: right;
+cursor: pointer;
+}
+.popup > button.popup-close{
+float: right;
+margin: 15px 20px
+}
+.my-modal{
+display:flex;}
+
+
+.pwt-btn .pwt-btn-switch{
+font-family:Vazir;
+font-size:12px
+}
+

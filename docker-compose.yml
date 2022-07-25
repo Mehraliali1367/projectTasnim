@@ -1,0 +1,48 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres
+    container_name: db
+    restart: always
+    expose: 
+      - "5432"
+    networks:
+      - main
+    environment:
+      - POSTGRES_DB=amin
+      - POSTGRES_USER=amin
+      - POSTGRES_HOST='postgres'
+      - POSTGRES_PASSWORD=amin**
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+  backend:
+    container_name: backend
+    build: ./backend
+#    command: bash -c "/start_prod.sh"
+    command: sh -c "python manage.py migrate && gunicorn setup.wsgi -b 0.0.0.0:8000"
+    volumes:
+      - ./backend:/code
+    ports:
+      - "8000:8000" 
+    networks:
+      - main    
+    depends_on:
+      - db
+  nginx:
+    container_name: nginx
+    build:
+      context: .
+      dockerfile: nginx/prod/Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    volumes:
+      - ./nginx/prod/prod.conf:/etc/nginx/nginx.conf
+      - ./backend/static:/usr/src/app/static
+    networks:
+      - main
+networks:
+  main:
+    driver: bridge
