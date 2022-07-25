@@ -7,5 +7,5 @@ ADD /setup/requirements.txt /code/
 RUN pip install -U pip
 RUN pip install -r requirements.txt
 #COPY scripts/start*.sh /
-ADD . /code/setup/
+ADD . /code/
 CMD ["gunicorn","setup.wsgi",":8000"]
