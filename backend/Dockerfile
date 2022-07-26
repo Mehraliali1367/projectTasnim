@@ -6,7 +6,6 @@ WORKDIR /code
 ADD /setup/requirements.txt /code/
 RUN pip install -U pip
 RUN pip install -r requirements.txt
-RUN apt install gunicorn
 #COPY scripts/start*.sh /
 ADD . /code/
 CMD ["gunicorn","setup.wsgi",":8000"]
