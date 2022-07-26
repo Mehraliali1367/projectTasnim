@@ -22,7 +22,7 @@ services:
 #    command: bash -c "/start_prod.sh"
     command: sh -c "python manage.py migrate && gunicorn setup.wsgi -b 0.0.0.0:8000"
     volumes:
-      - ./backend/setup/:/code
+      - ./backend/:/code
     ports:
       - "8000:8000" 
     networks:
