@@ -12,7 +12,7 @@ services:
     environment:
       - POSTGRES_DB=amin
       - POSTGRES_USER=amin
-      - POSTGRES_HOST='postgres'
+      - POSTGRES_HOST='db'
       - POSTGRES_PASSWORD=amin**
     volumes:
       - ./pgdata:/var/lib/postgresql/data
