@@ -20,7 +20,7 @@ services:
     container_name: backend
     build: ./backend/
 #    command: bash -c "/start_prod.sh"
-    command: sh -c "python /setup/manage.py migrate && gunicorn setup.wsgi -b 0.0.0.0:8000"
+    command: sh -c "python manage.py migrate && gunicorn setup.wsgi -b 0.0.0.0:8000"
     volumes:
       - ./backend/:/code
     ports:
