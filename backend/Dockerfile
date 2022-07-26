@@ -3,7 +3,7 @@ FROM python:latest
 ENV PYTHONUNBUFFERED 1
 RUN mkdir /code
 WORKDIR /code
-ADD /setup/requirements.txt /code/
+ADD requirements.txt /code/
 RUN pip install -U pip
 RUN pip install -r requirements.txt
 #COPY scripts/start*.sh /
