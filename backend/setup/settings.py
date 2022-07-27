@@ -75,7 +75,7 @@ REST_FRAMEWORK = {
 
 
 ROOT_URLCONF = 'setup.urls'
-
+CSRF_TRUSTED_ORIGINS = ['https://*.tsmimg.ir','http://*.127.0.0.1']
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
