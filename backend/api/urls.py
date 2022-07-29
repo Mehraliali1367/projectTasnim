@@ -14,7 +14,7 @@ router.register('users', views.UsersViewSet, basename="users")
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('t/', views.ImagesViewSet.as_view()),
+    path('img/', views.ImagesViewSet.as_view()),
     path('userdelete/', views.DeleteAccount.as_view()),
 
 ]
