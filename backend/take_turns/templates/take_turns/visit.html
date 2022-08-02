@@ -11,24 +11,23 @@
             <h3 class="card-title">فرم دریافت نوبت</h3>
         </div>
         <form id="form_visit">
-            <div class="m-2 p-3">
-                <div class="row">
-                    <div class="col-md-4 col-12">
+            <div class="row">
+                <div class="col-md-4 col-12 m-2 p-3">
+                    <div class="">
                         <label for="pdate">تاریخ</label><br>
                         <input type="text" id="pdate" class="on-select-example form-control">
                     </div>
-                </div>
 
-                <div class="row mt-3">
-                    <div class="col-md-4 col-12">
+                    <div class="mt-3">
+                        <!--                    <div class="col-md-4 col-12">-->
                         <label>پزشک</label>
                         <select class="form-control" id="doctor">
                             <option>برای این تاریخ پزشکی تعریف نشده است</option>
                         </select>
+                        <!--                    </div>-->
                     </div>
-                </div>
-                <div class="col-md-12 col-12 mt-3">
-                    <button type="button" class="btn btn-dark p-3" data-toggle="modal" data-target="#exampleModal">
+                    <!--                <div class="col-md-12 col-12 mt-3">-->
+                    <button type="button" class="btn btn-dark p-3 mt-3" data-toggle="modal" data-target="#exampleModal">
                         تعین زمان ویزیت
                     </button>
 
@@ -61,19 +60,23 @@
                             </div>
                         </div>
                     </div>
+                    <!--                </div>-->
+                    <div class="mt-3">
+                        <label for="serial">سریال بیمار</label><br>
+                        <input type="text" name="serial" id="serial" class="form-control" value="{{user.serial}}">
+                    </div>
+                    <div class=" mt-3">
+                        <label for="service">علت مراجعه</label><br>
+                        <select class="form-control" id="service">
+                            <option> خدمتی در نظرگرفته نشده است</option>
+                        </select>
+                    </div>
+                    <div class="mt-3">
+                        <button type="submit" class="btn btn-danger" id="form">ذخیره</button>
+                    </div>
                 </div>
-                <div class="col-md-4 col-12 mt-3">
-                    <label for="serial">سریال بیمار</label><br>
-                    <input type="text" name="serial" id="serial" class="form-control" value="{{user.serial}}">
-                </div>
-                <div class="col-md-4 col-12 mt-3">
-                    <label for="service">علت مراجعه</label><br>
-                    <select class="form-control" id="service">
-                        <option> خدمتی در نظرگرفته نشده است</option>
-                    </select>
-                </div>
-                <div class="col-md-12 col-12 mt-3">
-                    <button type="submit" class="btn btn-danger" id="form">ذخیره</button>
+                <div class="col-md-6 m-auto">
+                    <img class="card-img" src="{% static 'my_change/images/icon/icon6.jpeg' %}">
                 </div>
             </div>
         </form>
@@ -307,6 +310,9 @@ for (let i = 0; i < to-from ;i++) {
 
     }
 }
+
+
+
 
 
 
