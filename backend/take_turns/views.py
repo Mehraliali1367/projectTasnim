@@ -76,16 +76,12 @@ class Visit(View):
         return render(request, self.template_name)
 
     def post(self, request):
-        print(request.POST)
         doctor = request.POST.get('doctor')
         datetime_persian = request.POST.get('date')
         hour = request.POST.get('hour')
         user = request.POST.get('serial')
-        print(doctor, datetime_persian, hour, user)
         instance_doctor = get_object_or_404(models.Doctor, id=doctor)
-        print(doctor, datetime_persian, hour, user, instance_doctor)
         instance_user = get_object_or_404(User, serial=user)
-        print(doctor, datetime_persian, hour, user, instance_doctor, instance_user)
         models.Visit.objects.create(
             doctor=instance_doctor,
             datetime_persian=datetime_persian,
