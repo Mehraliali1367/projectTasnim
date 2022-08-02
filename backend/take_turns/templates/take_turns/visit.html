@@ -193,7 +193,6 @@ try{
             for (const radioButton of radioButtons) {
                 if (radioButton.checked) {
                     radio = radioButton.value;
-
                     labelHour.innerText=radio;
                     break;
                 }
@@ -258,27 +257,34 @@ function create_radio(from,to,identity){
 let myradio=document.querySelector("#my-modal");
 myradio.className="modal-body";
 myradio.innerHTML="";
-
-for (let i = 0; i < to-from ;i++) {
-    let time=60/identity;
-    let hour=from+i;
     let mydiv=document.createElement("div");
     mydiv.setAttribute('id','mydiv');
     mydiv.className="row";
     mydiv.classList.add('mb-3');
-    mydiv.classList.add('justify-content-between');
+<!--    mydiv.classList.add('justify-content-between');-->
     myradio.append(mydiv);
+for (let i = 0; i < to-from ;i++) {
+    let minute=60/identity;
+    let hour=from+i;
+
         for(let j=0;j< identity;j++){
-            let Id=((hour.toString()).length>1?hour:"0"+hour).toString()+":"+(time*(j)>0?time*(j):"00").toString();
+            let Id=((hour.toString()).length>1?hour:"0"+hour).toString()
+            +":"
+            +(minute*(j)>0?
+            ((minute*(j))>9?minute*(j):"0"+minute*(j))
+            :"00").toString();
             let div=document.createElement("div");
-                div.classList.add('ml-3');
+<!--                div.classList.add('m-1');-->
                 div.classList.add('pr-4');
+                div.classList.add('pl-3');
+                div.classList.add('pt-3');
+                div.classList.add('pb-3');
                 let input=document.createElement("input");
                 input.className="form-check-input";
                 input.setAttribute('type','radio');
                 input.setAttribute('id',Id);
 
-    <!-- baraye sozandan zaman haye gerefte shode -->
+    <!-- baraye sozandan nobat_haye gerefte shode -->
 
                 if(reciveHour){
                     reciveHour.forEach((item) => {
