@@ -56,10 +56,7 @@ class Images(models.Model):
 
 
 def save_images(sender, **kwargs):
-    print("#" * 100)
-    print(kwargs['instance'])
     user = User.objects.get(serial=kwargs['instance'])
-    print(user.tel)
     if kwargs['created']:
         try:
             import json
