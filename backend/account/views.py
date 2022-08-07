@@ -100,8 +100,6 @@ class Edit(LoginRequiredMixin, AdminAccessMixin, UpdateView):
     template_name = 'account/edit.html'
 
     def get_object(self):
-        print("@" * 100)
-        print(self.request)
         return User.objects.get(serial=self.request.GET["serial"])
 
     def get_form_kwargs(self):

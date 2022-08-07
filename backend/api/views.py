@@ -1,4 +1,4 @@
-from rest_framework.generics import CreateAPIView, ListAPIView,RetrieveUpdateDestroyAPIView
+from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.views import APIView
 from account.models import Images, User
 from .serializers import ImagesSerializer, UserSerializer
@@ -6,11 +6,12 @@ from rest_framework.response import Response
 from rest_framework import status, viewsets
 
 
-class ImagesViewSet(CreateAPIView):
+class Images(CreateAPIView):
     queryset = Images.objects.all()
     serializer_class = ImagesSerializer
 
- #ddfdfd
+
+# ddfdfd
 
 #   '^' Starts-with search.
 #   '=' Exact matches.
@@ -30,7 +31,7 @@ class ImagesViewSet(CreateAPIView):
 #     'event_type__name': ['exact'],
 #     'event_city__name': ['exact'], 'event_tag__name': ['exact']
 # }
-class UsersViewSet(viewsets.ModelViewSet):
+class UsersList(ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     search_fields = [

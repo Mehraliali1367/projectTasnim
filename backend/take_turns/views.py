@@ -45,7 +45,6 @@ class PresenceDoctor(View):
         return render(request, self.template_name)
 
     def post(self, request):
-        print(request.POST)
         doctor = request.POST.get('doctor')
         datetime_persian = request.POST.get('date')
         from_hour = request.POST.get('from_hour')

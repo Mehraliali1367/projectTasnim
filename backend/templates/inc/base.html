@@ -22,6 +22,7 @@
     <!-- daterange picker -->
     <link rel="shortcut icon" href="{% static 'my_change/images/icon/icon5.png' %}">
     <link rel="stylesheet" href="{% static 'adminlt/plugins/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'adminlt/plugins/iCheck/all.css' %}">
     <link rel="stylesheet" href="{% static 'adminlt/dist/css/bootstrap-rtl.min.css' %}">
     <link rel="stylesheet" href="{% static 'adminlt/dist/css/adminlte.min.css' %}">
     <link rel="stylesheet" href="{% static 'adminlt/dist/css/bootstrap-rtl.min.css' %}">
@@ -118,16 +119,16 @@
 <!-- OPTIONAL SCRIPTS -->
 <!--<script src="{% static 'adminlt/plugins/chart.js/Chart.min.js' %}"></script>-->
 <script src="{% static 'adminlt/dist/js/demo.js' %}"></script>
-<!--<script src="{% static 'adminlt/dist/js/pages/dashboard3.js' %}"></script>-->
-<!--<script>-->
-<!--  $(function () {-->
-<!--    $('input').iCheck({-->
-<!--      checkboxClass: 'icheckbox_square-blue',-->
-<!--      radioClass   : 'iradio_square-blue',-->
-<!--      increaseArea : '20%' // optional-->
-<!--    })-->
-<!--  })-->
-<!--</script>-->
+<script src="{% static 'adminlt/plugins/iCheck/icheck.min.js' %}"></script>
+<script>
+  $(function () {
+    $('input').iCheck({
+      checkboxClass: 'icheckbox_square-red',
+      radioClass   : 'iradio_square-red',
+      increaseArea : '20%' // optional
+    })
+  })
+</script>
 <!-- Page script -->
 
 <!--persian Calander-->
