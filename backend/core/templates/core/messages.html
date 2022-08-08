@@ -14,7 +14,7 @@
             <button class="btn btn-danger">ارسال</button>
         </div>
         <div class="">
-            <div id="tels" class="form-group row m-2 border p-3 d-flex justify-content-between">
+            <div id="tels" class="form-group row m-2 border p-3">
                 <label>
                     <input type="checkbox" class="icheckbox_minimal-red">
                     09127583171
@@ -45,13 +45,11 @@ window.onload = function() { getuser()}
          const response = await axios.get('/api/users/');
          recive = response.data;
          recive.forEach((item) => {
+                   let div=document.createElement("div");
+                   div.className="col-md-4 col-6"
                    let label=document.createElement("label");
-                   label.className="pl-1";
-                   label.className="pt-1";
-                   label.className="pb-1";
-                   label.className="pr-5";
+                   label.className="p-1"
                    let input=document.createElement("input");
-                   input.className="icheckbox_minimal-red";
                    input.className="icheckbox_minimal-red";
                    input.setAttribute('type','checkbox');
                    input.setAttribute('id',item.tel);
@@ -59,7 +57,8 @@ window.onload = function() { getuser()}
                    var text=item.tel
                    label.append(input);
                    label.append(text);
-                   divTels.append(label)
+                   div.append(label)
+                   divTels.append(div)
                 })
             $(function () {
                 $('input').iCheck({
