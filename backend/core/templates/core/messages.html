@@ -11,7 +11,11 @@
             <textarea class="form-control" id="messages" rows="3"></textarea>
         </div>
         <div class="col-3 m-2">
-            <button class="btn btn-danger">ارسال</button>
+            <button id="send" class="btn btn-danger">ارسال</button>
+        </div>
+        <div class="col-12 m-4">
+            <button id="all-tel" class="btn btn-sm btn-secondary mt-2"> ارسال به همه شماره ها</button>
+            <button id="un-tel" class="btn btn-sm btn-secondary mt-2 ml-2"> عدم ارسال به همه شماره ها</button>
         </div>
         <div class="">
             <div id="tels" class="form-group row m-2 border p-3">
@@ -30,15 +34,49 @@
 
 <script type="text/javascript">
 
-let divTels=document.querySelector("#tels");
-divTels.innerHTML=""
-<!--btn.addEventListener(-->
-<!--'click',-->
-<!--function(event) {-->
-<!--    event.preventDefault()-->
-<!--    getuser()-->
-<!--    });-->
 
+let el_checkbox=null;
+let obj_tell=[]
+let divTels=document.querySelector("#tels");
+
+let btn=document.querySelector("#send");
+let btn_all_tell=document.querySelector("#all-tel");
+let btn_un_tell=document.querySelector("#un-tel");
+
+divTels.innerHTML=""
+btn.addEventListener(
+'click',
+function(event) {
+    obj_tell=[];
+    event.preventDefault()
+    var i=0;
+    el_checkbox.forEach(element => {
+        if((element.firstElementChild).classList[1] === 'checked'){
+              obj_tell[i] = element.innerText;
+              i=i+1;
+        }
+
+    })
+        console.log(obj_tell)
+});
+btn_all_tell.addEventListener(
+'click',
+function(event) {
+    el_checkbox.forEach(element => {
+        if((element.firstElementChild).classList[0] === 'icheckbox_square-red'){
+              (element.firstElementChild).classList.add('checked')
+        }
+    })
+});
+btn_un_tell.addEventListener(
+'click',
+function(event) {
+    el_checkbox.forEach(element => {
+        if((element.firstElementChild).classList[1] === 'checked'){
+              (element.firstElementChild).classList.remove('checked')
+        }
+    })
+});
 window.onload = function() { getuser()}
     async function getuser() {
     try {
@@ -48,35 +86,35 @@ window.onload = function() { getuser()}
                    let div=document.createElement("div");
                    div.className="col-md-4 col-6"
                    let label=document.createElement("label");
+                   label.setAttribute('id','tel-status')
                    label.className="p-1"
                    let input=document.createElement("input");
                    input.className="icheckbox_minimal-red";
                    input.setAttribute('type','checkbox');
-                   input.setAttribute('id',item.tel);
+                   input.setAttribute('id','my-checkbox');
+                   input.setAttribute('name',item.tel);
                    input.setAttribute('checked',true);
                    var text=item.tel
                    label.append(input);
                    label.append(text);
                    div.append(label)
                    divTels.append(div)
-                })
-            $(function () {
-                $('input').iCheck({
-                 checkboxClass: 'icheckbox_square-red',
-                 radioClass   : 'iradio_square-red',
-                 increaseArea : '20%' // optional
-            })
+
+                    $(function () {
+                        $('input').iCheck({
+                        checkboxClass: 'icheckbox_square-red',
+                        radioClass   : 'iradio_square-red',
+                        increaseArea : '20%' // optional
+                        })
+                    })
+
          })
+         el_checkbox = document.querySelectorAll('#tel-status');
     }
     catch (error) {
+    console.log("eeeeeeeeeeeeeeeeeeror")
+    console.log(error)
                 }};
-
-
-
-
-
-
-
 
 </script>
 {% endblock script %}

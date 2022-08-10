@@ -126,13 +126,13 @@ async function getuser() {
             tdnum.setAttribute("scope","row")
             count=count+1;
 
-            btnedit.className="btn btn-dark btn-sm p-2 text-light"
+            btnedit.className="btn btn-dark btn-sm p-2 text-light mt-1 "
             btnedit.textContent="ویرایش"
             btnedit.setAttribute("serial",item.serial)
             btnedit.setAttribute("href","/edit/?serial="+item.serial)
             tdreq.appendChild(btnedit)
 
-            btndelete.className="btn btn-danger p-2 pr-3 pl-3 btn-sm text-light mr-2"
+            btndelete.className="btn btn-danger p-2 pr-3 pl-3 btn-sm text-light mr-2 mt-1"
             btndelete.textContent="حذف"
             btndelete.setAttribute("deleteuser",item.serial)
             btndelete.addEventListener('click', deluser);
