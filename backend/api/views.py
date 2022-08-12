@@ -74,3 +74,10 @@ class CountUsers(View):
 
     def post(self):
         pass
+
+
+class ListUsers(ListAPIView):
+    serializer_class = UserSerializer
+
+    def get_queryset(self):
+        return User.objects.filter(is_admin=False)[:256 * int(self.request.GET.get("obj"))]

@@ -18,5 +18,6 @@ urlpatterns = [
     path('userdelete/', views.DeleteAccount.as_view()),
     path('users/', views.UsersList.as_view()),
     path('countusers/', views.CountUsers.as_view()),
+    path('ListUsers/', views.ListUsers.as_view()),
 
 ]

@@ -126,6 +126,7 @@ async function get_count_users() {
              li.append(a)
              div_in_ul.append(li)
          }
+         getuser()
     }
     catch (error) {
     console.log("eeeeeeeeeeeeeeeeeeror")
@@ -133,8 +134,7 @@ async function get_count_users() {
                 }};
 async function getuser() {
     try {
-         const response = await axios.get('/api/countusers/');
-<!--         const response = await axios.get('/api/countusers/',{params:{obj:event.target.getAttribute("deletedoctor")}});-->
+         const response = await axios.get('/api/ListUsers/',{params:{obj:1}});
          recive = response.data;
          recive.forEach((item) => {
                    let div=document.createElement("div");
@@ -166,10 +166,10 @@ async function getuser() {
          el_checkbox = document.querySelectorAll('#tel-status');
     }
     catch (error) {
-    console.log("eeeeeeeeeeeeeeeeeeror")
-    console.log(error)
-                }};
-
+         console.log("eeeeeeeeeeeeeeeeeeror")
+         console.log(error)
+    }
+};
 
 
 </script>
