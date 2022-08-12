@@ -4,6 +4,8 @@ from account.models import Images, User
 from .serializers import ImagesSerializer, UserSerializer
 from rest_framework.response import Response
 from rest_framework import status, viewsets
+from django.http import JsonResponse
+from django.views import View
 
 
 class Images(CreateAPIView):
@@ -63,3 +65,12 @@ class DeleteAccount(RetrieveUpdateDestroyAPIView):
         user.delete()
 
         return Response({status.HTTP_200_OK})
+
+
+class CountUsers(View):
+    def get(self, request):
+        count = User.objects.filter(is_admin=False).count()
+        return JsonResponse({'users': count})
+
+    def post(self):
+        pass

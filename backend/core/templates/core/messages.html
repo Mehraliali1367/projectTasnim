@@ -17,6 +17,27 @@
             <button id="all-tel" class="btn btn-sm btn-secondary mt-2"> ارسال به همه شماره ها</button>
             <button id="un-tel" class="btn btn-sm btn-secondary mt-2 ml-2"> عدم ارسال به همه شماره ها</button>
         </div>
+        <div class="mx-auto">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    <div class="d-flex my-li-pagination">
+
+                    </div>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
         <div class="">
             <div id="tels" class="form-group row m-2 border p-3">
                 <label>
@@ -77,10 +98,43 @@ function(event) {
         }
     })
 });
-window.onload = function() { getuser()}
-    async function getuser() {
+
+window.onload = function() { get_count_users()}
+
+async function get_count_users() {
     try {
-         const response = await axios.get('/api/users/');
+         let div_in_ul=document.querySelector(".my-li-pagination");
+         const response = await axios.get('/api/countusers/');
+         recive = response.data.users;
+         const counter=1;
+         if(recive>257){
+            counter=recive//256;
+            if((recive%256)>0){
+               counter++;
+            }
+         }
+         console.log(counter)
+
+         for(var i=0;i<counter;i++){
+             let li=document.createElement("li");
+             let a=document.createElement("a");
+
+             li.className="page-item";
+             a.className="page-link";
+
+             a.append(i+1)
+             li.append(a)
+             div_in_ul.append(li)
+         }
+    }
+    catch (error) {
+    console.log("eeeeeeeeeeeeeeeeeeror")
+    console.log(error)
+                }};
+async function getuser() {
+    try {
+         const response = await axios.get('/api/countusers/');
+<!--         const response = await axios.get('/api/countusers/',{params:{obj:event.target.getAttribute("deletedoctor")}});-->
          recive = response.data;
          recive.forEach((item) => {
                    let div=document.createElement("div");
@@ -115,6 +169,8 @@ window.onload = function() { getuser()}
     console.log("eeeeeeeeeeeeeeeeeeror")
     console.log(error)
                 }};
+
+
 
 </script>
 {% endblock script %}

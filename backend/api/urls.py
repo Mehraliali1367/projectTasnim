@@ -17,5 +17,6 @@ urlpatterns = [
     path('img/', views.Images.as_view()),
     path('userdelete/', views.DeleteAccount.as_view()),
     path('users/', views.UsersList.as_view()),
+    path('countusers/', views.CountUsers.as_view()),
 
 ]

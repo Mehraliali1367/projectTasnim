@@ -80,3 +80,11 @@ font-family:Vazir;
 font-size:12px
 }
 
+.pagination > li > a ,.my-li-pagination > li > a{
+color: #fff !important;
+background-color: #dc3545;
+}
+.pagination > li > a:hover,.my-li-pagination > li > a:hover{
+color: #dc3545 !important;
+background-color: #fff;
+}
