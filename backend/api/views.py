@@ -81,7 +81,7 @@ class ListUsers(ListAPIView):
     serializer_class = UserSerializer
 
     def get_queryset(self):
-        user_list = User.objects.using("postgress").filter(is_admin=False, ).distinct('tel').order_by("-date")
+        user_list = User.objects.filter(is_admin=False, ).order_by("-date")
         page = self.request.GET.get('obj', 1)
         paginator = Paginator(user_list, 99)
         try:
