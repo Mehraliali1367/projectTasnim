@@ -80,4 +80,4 @@ class ListUsers(ListAPIView):
     serializer_class = UserSerializer
 
     def get_queryset(self):
-        return User.objects.filter(is_admin=False)[:198 * int(self.request.GET.get("obj"))]
+        return User.objects.filter(is_admin=False).order_by("-date")[:99 * int(self.request.GET.get("obj"))]
