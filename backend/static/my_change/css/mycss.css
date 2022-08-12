@@ -84,7 +84,7 @@ font-size:12px
 color: #fff !important;
 background-color: #dc3545;
 }
-.pagination > li > a:hover,.my-li-pagination > li > a:hover{
+.pagination > li > a:hover,.my-li-pagination > li > a:hover,.mycolor{
 color: #dc3545 !important;
 background-color: #fff;
 }
