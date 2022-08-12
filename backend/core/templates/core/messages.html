@@ -111,6 +111,7 @@ async function get_count_users() {
          let counter=1;
          if(recive>257){
             counter=recive//256;
+            console.log(counter)
             if((recive%256)>0){
                counter++;
             }
