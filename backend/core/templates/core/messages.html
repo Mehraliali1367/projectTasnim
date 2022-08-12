@@ -122,20 +122,22 @@ async function get_count_users() {
 
              li.className="page-item";
              a.className="page-link";
-
+             li.addEventListener( 'click', function(){
+                 getuser(i)
+             });
              a.append(i)
              li.append(a)
              div_in_ul.append(li)
          }
-         getuser()
+         getuser(1)
     }
     catch (error) {
     console.log("eeeeeeeeeeeeeeeeeeror")
     console.log(error)
                 }};
-async function getuser() {
+async function getuser(page) {
     try {
-         const response = await axios.get('/api/ListUsers/',{params:{obj:1}});
+         const response = await axios.get('/api/ListUsers/',{params:{obj:page}});
          recive = response.data;
          recive.forEach((item) => {
                    let div=document.createElement("div");
