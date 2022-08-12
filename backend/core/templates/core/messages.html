@@ -106,6 +106,8 @@ async function get_count_users() {
          let div_in_ul=document.querySelector(".my-li-pagination");
          const response = await axios.get('/api/countusers/');
          recive = response.data.users;
+         console.log(recive)
+         console.log("********************************************")
          let counter=1;
          if(recive>257){
             counter=recive//256;
