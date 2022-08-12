@@ -114,14 +114,15 @@ async function get_count_users() {
                counter++;
             }
          }
-         for(var i=0;i<counter;i++){
+
+         for(var i=1;i<=counter;i++){
              let li=document.createElement("li");
              let a=document.createElement("a");
 
              li.className="page-item";
              a.className="page-link";
 
-             a.append(i+1)
+             a.append(i)
              li.append(a)
              div_in_ul.append(li)
          }
