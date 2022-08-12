@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework import status, viewsets
 from django.http import JsonResponse
 from django.views import View
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 class Images(CreateAPIView):
@@ -80,4 +81,13 @@ class ListUsers(ListAPIView):
     serializer_class = UserSerializer
 
     def get_queryset(self):
-        return User.objects.filter(is_admin=False).order_by("-date")[:99 * int(self.request.GET.get("obj"))]
+        user_list = User.objects.filter(is_admin=False, ).order_by("-date")
+        page = request.GET.get('obj', 1)
+        paginator = Paginator(user_list, 99)
+        try:
+            users = paginator.page(page)
+        except PageNotAnInteger:
+            users = paginator.page(1)
+        except EmptyPage:
+            users = paginator.page(paginator.num_pages)
+        return users
