@@ -137,6 +137,7 @@ async function get_count_users() {
                 }};
 async function getuser(page) {
     try {
+         divTels.innerHTML="";
          const response = await axios.get('/api/ListUsers/',{params:{obj:page}});
          recive = response.data;
          recive.forEach((item) => {
