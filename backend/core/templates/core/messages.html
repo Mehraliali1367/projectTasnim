@@ -93,6 +93,7 @@ btn_un_tell.addEventListener(
 'click',
 function(event) {
     el_checkbox.forEach(element => {
+        console.log(element)
         if((element.firstElementChild).classList[1] === 'checked'){
               (element.firstElementChild).classList.remove('checked')
         }
