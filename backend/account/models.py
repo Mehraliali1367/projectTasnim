@@ -45,6 +45,7 @@ class User(AbstractUser):
     class Meta:
         verbose_name = 'کاربر'
         verbose_name_plural = 'کاربران'
+        ordering = ['-date']
 
 
 class Images(models.Model):
