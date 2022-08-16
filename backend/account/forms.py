@@ -46,8 +46,9 @@ class UserRegistrationForm(forms.Form):
         attrs={'class': 'form-control', 'placeholder': 'برای وارد کردن سریال با رادیولوژی هماهنگ کنید'}))
     full_name = forms.CharField(label='نام کامل', widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'مثال: مرتضی حسینی'}))
-    tel = forms.CharField(label='موبایل',
-                          widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'مثال: 09123541289'}))
+    tel = forms.CharField(label='موبایل',widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'مثال: 09123541289'}))
+    place = forms.CharField(label='آدرس',widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'مثال: باجک'}))
+    brithday = forms.CharField(label='تاریخ تولد',widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'مثال: 13671019'}))
     password = forms.CharField(label='رمز', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
 
 

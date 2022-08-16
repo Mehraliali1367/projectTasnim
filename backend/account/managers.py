@@ -14,14 +14,14 @@ def serial_auto():
 
 
 class MyUserManager(BaseUserManager):
-    def create_user(self, serial, full_name, tel, password):
+    def create_user(self, serial, full_name, tel, place, brithday, password):
         if not serial:
             serial = serial_auto()
         if not full_name:
             raise ValueError('کاربر باید نام داشته باشد')
         if not tel:
             raise ValueError('کاربر باید موبایل داشته باشد')
-        user = self.model(serial=serial, full_name=full_name, tel=tel)
+        user = self.model(serial=serial, full_name=full_name, tel=tel, place=place, brithday=brithday)
         user.set_password(password)
         user.save(using=self._db)
         return user
@@ -31,4 +31,3 @@ class MyUserManager(BaseUserManager):
         user.is_admin = True
         user.save(using=self._db)
         return user
-
