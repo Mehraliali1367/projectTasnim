@@ -43,7 +43,7 @@ class UsersList(ListAPIView):
         '^full_name',
     ]
     filterset_fields = {
-        'date': ['gte', 'exact', 'lte']
+        'date': ['gte',]
     }
 
 

@@ -53,7 +53,7 @@ class UserRegister(View):
         form = self.form_class(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
-            User.objects.create_user(cd['serial'], cd['full_name'], cd['tel'], cd['place'], cd['brithday'],
+            User.objects.create_user(cd['serial'], cd['full_name'], cd['melli'], cd['tel'], cd['place'], cd['brithday'],
                                      cd['password'])
             messages.success(request, 'کاربر جدید اضافه شد', 'success')
             return redirect('core:home')

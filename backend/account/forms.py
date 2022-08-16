@@ -46,9 +46,14 @@ class UserRegistrationForm(forms.Form):
         attrs={'class': 'form-control', 'placeholder': 'برای وارد کردن سریال با رادیولوژی هماهنگ کنید'}))
     full_name = forms.CharField(label='نام کامل', widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'مثال: مرتضی حسینی'}))
-    tel = forms.CharField(label='موبایل',widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'مثال: 09123541289'}))
-    place = forms.CharField(label='آدرس',widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'مثال: باجک'}))
-    brithday = forms.CharField(label='تاریخ تولد',widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'مثال: 13671019'}))
+    melli = forms.CharField(label='کدملی',
+                            widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'مثال: 0386022775'}))
+    tel = forms.CharField(label='موبایل',
+                          widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'مثال: 09123541289'}))
+    place = forms.CharField(label='آدرس',
+                            widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'مثال: باجک'}))
+    brithday = forms.CharField(label='تاریخ تولد',
+                               widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'مثال: 13671019'}))
     password = forms.CharField(label='رمز', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
 
 
@@ -57,7 +62,7 @@ class UserUpdate(forms.Form):
     melli = forms.CharField(label='کدملی', disabled=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
     full_name = forms.CharField(label='نام کامل', widget=forms.TextInput(attrs={'class': 'form-control'}))
     brithday = forms.IntegerField(label='تاریخ تولد',
-                             widget=forms.TextInput(attrs={'class': 'normal-example form-control '}))
+                                  widget=forms.TextInput(attrs={'class': 'normal-example form-control '}))
     tel = forms.CharField(label='موبایل', widget=forms.TextInput(attrs={'class': 'form-control'}))
     place = forms.CharField(label='محل سکونت', widget=forms.TextInput(attrs={'class': 'form-control'}))
 
@@ -70,7 +75,7 @@ class ProfileForms(forms.ModelForm):
     melli = forms.CharField(label='کدملی', widget=forms.TextInput(attrs={'class': 'form-control'}))
     full_name = forms.CharField(label='نام کامل', widget=forms.TextInput(attrs={'class': 'form-control'}))
     brithday = forms.IntegerField(label='تاریخ تولد',
-                             widget=forms.TextInput(attrs={'class': 'on-select-example form-control '}))
+                                  widget=forms.TextInput(attrs={'class': 'on-select-example form-control '}))
     tel = forms.CharField(label='موبایل', widget=forms.TextInput(attrs={'class': 'form-control'}))
     place = forms.CharField(label='محل سکونت', widget=forms.TextInput(attrs={'class': 'form-control'}))
 
@@ -93,4 +98,4 @@ class ImagesForm(forms.Form):
 
 
 class SearchForm(forms.Form):
-    txt = forms.CharField(label='جستجو',widget=forms.TextInput(attrs={'class':'form-control'}))
+    txt = forms.CharField(label='جستجو', widget=forms.TextInput(attrs={'class': 'form-control'}))
