@@ -41,8 +41,6 @@ class UsersList(ListAPIView):
         '^serial',
         '^tel',
         '^full_name',
-        '^date'
-
     ]
     filterset_fields = {
         'date': ['gte', 'exact', 'lte']
