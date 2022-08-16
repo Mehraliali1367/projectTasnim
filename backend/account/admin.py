@@ -21,7 +21,7 @@ class UserAdmin(BaseUserAdmin):
         }),
     )
     search_fields = ('serial',)
-    ordering = ('full_name',)
+    ordering = ('date',)
     filter_horizontal = ()
 
 
