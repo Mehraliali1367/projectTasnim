@@ -41,7 +41,7 @@ class UsersList(ListAPIView):
         '^serial',
         '^tel',
         '^full_name',
-        '^date_register'
+        '^date'
 
     ]
     filterset_fields = {
