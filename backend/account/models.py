@@ -6,6 +6,7 @@ from django.dispatch import receiver  # add this
 from django.db.models.signals import post_save  # add this
 from kavenegar import *
 from django.utils import timezone
+from extensions.utils import jalali_converter
 
 
 class User(AbstractUser):
@@ -31,6 +32,11 @@ class User(AbstractUser):
 
     def has_module_perms(self, app_label):
         return True
+
+    def date_register(self):
+        return jalali_converter(self.date)
+
+    date_register.short_description = "تاریخ عضویت"
 
     @property
     def is_staff(self):

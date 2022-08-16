@@ -35,24 +35,18 @@ class Images(CreateAPIView):
 #     'event_city__name': ['exact'], 'event_tag__name': ['exact']
 # }
 class UsersList(ListAPIView):
-    queryset = User.objects.all()
+    queryset = User.objects.all().order_by("-date")[:500]
     serializer_class = UserSerializer
     search_fields = [
         '^serial',
         '^tel',
-        '^full_name'
+        '^full_name',
+        'date_register'
 
     ]
     filterset_fields = {
         'date': ['gte', 'exact', 'lte']
     }
-
-    # def get_queryset(self):
-    #     if self.request.method == 'GET':
-    #         queryset = User.objects.all()
-    #         type = self.request.GET.get('obj', None)
-    #         print("type:"+type)
-    #         return queryset
 
 
 class DeleteAccount(RetrieveUpdateDestroyAPIView):
