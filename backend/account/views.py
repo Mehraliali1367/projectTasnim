@@ -27,6 +27,7 @@ def melli_auto(melli):
     try:
         obj = User.objects.filter(melli=melli)
         if not obj:
+            print("-" + str(melli) + "-")
             return "-" + str(melli) + "-"
         else:
             return melli_auto(random.randrange(1000000, 9999999))
