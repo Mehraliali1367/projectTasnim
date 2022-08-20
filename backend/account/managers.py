@@ -21,6 +21,9 @@ class MyUserManager(BaseUserManager):
             raise ValueError('کاربر باید نام داشته باشد')
         if not tel:
             raise ValueError('کاربر باید موبایل داشته باشد')
+        if not melli:
+            raise ValueError('کد ملی صحیح نیست یا تکراری است')
+
         user = self.model(serial=serial, full_name=full_name, melli=melli, tel=tel, place=place, brithday=brithday)
         user.set_password(password)
         user.save(using=self._db)

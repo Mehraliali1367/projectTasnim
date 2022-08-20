@@ -9,6 +9,34 @@ from django.contrib.auth import authenticate, login, logout
 from rest_framework.generics import ListAPIView, ListCreateAPIView
 from .mixins import AdminAccessMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
+import random
+
+
+def check_serial(serial):
+    try:
+        print("1" * 100)
+        obj = User.objects.filter(serial=serial)
+        if not obj:
+            return True
+        else:
+            return False
+    except:
+        return False
+
+
+def melli_auto(melli):
+    try:
+        print("1" * 100)
+        obj = User.objects.filter(melli=melli)
+        if not obj:
+            print("2" * 100)
+            print(melli)
+            return "-" + str(melli) + "-"
+        else:
+            return melli_auto(random.randrange(1000000, 9999999))
+    except:
+        print("4" * 100)
+        return 1
 
 
 class UserLogin(View):
@@ -53,11 +81,18 @@ class UserRegister(View):
         form = self.form_class(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
-            User.objects.create_user(cd['serial'], cd['full_name'], cd['melli'], cd['tel'], cd['place'], cd['brithday'],
-                                     cd['password'])
-            messages.success(request, 'کاربر جدید اضافه شد', 'success')
-            return redirect('core:home')
+            serial = check_serial(cd['serial'])
+            if serial:
+                melli = melli_auto(cd['melli'])
+                User.objects.create_user(cd['serial'], cd['full_name'], melli, cd['tel'], cd['place'], cd['brithday'],
+                                         cd['password'])
+                messages.success(request, 'کاربر جدید اضافه شد', 'success')
+                return redirect('core:home')
+            else:
+                messages.warning(request, 'کاربر قبلا ثبت شده است', 'warning')
+                return render(request, 'account/register.html', {'form': form})
         else:
+            messages.error(request, 'ورودی ها را چک کنید', 'error')
             return render(request, 'account/register.html', {'form': form})
 
 
