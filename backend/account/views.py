@@ -14,7 +14,6 @@ import random
 
 def check_serial(serial):
     try:
-        print("1" * 100)
         obj = User.objects.filter(serial=serial)
         if not obj:
             return True
@@ -26,16 +25,12 @@ def check_serial(serial):
 
 def melli_auto(melli):
     try:
-        print("1" * 100)
         obj = User.objects.filter(melli=melli)
         if not obj:
-            print("2" * 100)
-            print(melli)
             return "-" + str(melli) + "-"
         else:
             return melli_auto(random.randrange(1000000, 9999999))
     except:
-        print("4" * 100)
         return 1
 
 
