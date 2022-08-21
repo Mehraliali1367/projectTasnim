@@ -15,8 +15,13 @@
             <div class="row m-2 p-3">
                 <div class="col-md-3 col-sm-4 col-8 ">
                     {% csrf_token %}
-                    <label for="obj">جستجو</label>
-                    <input type="text" id="obj" class="form-control">
+                    <label for="obj">جستجو پیشرفته</label>
+                    <input type="text" id="obj" class="form-control" placeholder="سریال,موبایل,نام">
+                </div>
+                <div class="col-md-3 col-sm-4 col-8 ">
+                    {% csrf_token %}
+                    <label for="obj">جستجو تاریخ</label>
+                    <input type="text" id="obj_date" class="form-control" placeholder="مثال ۱۴۰۱/۰۵/۰۷">
                 </div>
                 <div class="col-md-2 col-2 d-flex align-items-end ">
                     <button class="btn btn-danger" id="btnobj" type="submit">جستجو</button>
@@ -104,7 +109,10 @@ function deleteRow() {
 
 async function getuser() {
     try {
-        const response = await axios.get('/api/users/',{params:{search:document.getElementById('obj').value}});
+        let data_send = new FormData();
+        data_send.append("search_fields", "date");
+        data_send.append("search",document.getElementById('obj').value );
+        const response = await axios.get('/api/users/',{params:{search:document.getElementById('obj').value,date:document.getElementById('obj_date').value}});
         recive = response.data;
         tbl.classList.add("table-bordered");
         recive.forEach((item) => {

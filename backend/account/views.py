@@ -25,12 +25,15 @@ def check_serial(serial):
 
 def melli_auto(melli):
     try:
+        if len(str(melli)) < 6 or len(str(melli)) > 10:
+            return melli_auto("-" + str(random.randrange(1000000, 9999999)) + "-")
+
         obj = User.objects.filter(melli=melli)
-        if not obj:
-            print("-" + str(melli) + "-")
-            return "-" + str(melli) + "-"
+
+        if not obj.exists():
+            return str(melli)
         else:
-            return melli_auto(random.randrange(1000000, 9999999))
+            return melli_auto("-" + str(random.randrange(1000000, 9999999)) + "-")
     except:
         return 1
 

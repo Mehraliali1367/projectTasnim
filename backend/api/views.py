@@ -3,10 +3,11 @@ from rest_framework.views import APIView
 from account.models import Images, User
 from .serializers import ImagesSerializer, UserSerializer
 from rest_framework.response import Response
-from rest_framework import status, viewsets
+from rest_framework import status, viewsets, filters
 from django.http import JsonResponse
 from django.views import View
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+import extensions.jalali as jalali
 
 
 class Images(CreateAPIView):
@@ -34,17 +35,63 @@ class Images(CreateAPIView):
 #     'event_type__name': ['exact'],
 #     'event_city__name': ['exact'], 'event_tag__name': ['exact']
 # }
+
+class DynamicSearchFilter(filters.SearchFilter):
+    def get_search_fields(self, view, request):
+        list = request.GET.getlist('search_fields', [])
+        return list
+
+        def date_register(date):
+            print("*" * 100)
+            return jalali.Persian(date).gregorian_string()
+
+
 class UsersList(ListAPIView):
-    queryset = User.objects.all().order_by("-date")[:500]
+    # filter_backends = (DynamicSearchFilter,)
     serializer_class = UserSerializer
+
     search_fields = [
         '^serial',
         '^tel',
         '^full_name',
+
     ]
-    filterset_fields = {
-        'date': ['gte',]
-    }
+
+    def get_queryset(self):
+        try:
+            date = date_register(self.request.GET.get("date"))
+            if date:
+                convert_date = str(date).split('/')
+                if len(str(convert_date[1])) == 1:
+                    convert_date[1] = "0" + convert_date[1]
+                if len(str(convert_date[2])) == 1:
+                    convert_date[2] = "0" + convert_date[2]
+                d = str.format("{}-{}-{}", convert_date[0], convert_date[1], convert_date[2])
+                return User.objects.filter(date__startswith=d)
+            else:
+                return User.objects.all()
+        except:
+            return User.objects.all()
+        finally:
+            return User.objects.all()
+
+
+def date_register(date):
+    return jalali.Persian(date).gregorian_string()
+
+
+# queryset = User.objects.all().order_by("-date")[:500]
+# queryset = User.objects.all()
+# serializer_class = UserSerializer
+# search_fields = [
+#     '^serial',
+#     '^tel',
+#     '^full_name',
+#     '^date'
+# ]
+# filterset_fields = {
+#     'date': ['lte', ]
+# }
 
 
 class DeleteAccount(RetrieveUpdateDestroyAPIView):

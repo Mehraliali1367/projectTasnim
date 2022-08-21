@@ -51,10 +51,16 @@ class UserRegistrationForm(forms.Form):
     tel = forms.CharField(label='موبایل',
                           widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'مثال: 09123541289'}))
     place = forms.CharField(label='آدرس',
-                            widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'مثال: باجک'}))
+                            widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'مثال: باجک'}),
+                            initial='قم')
     brithday = forms.CharField(label='تاریخ تولد',
                                widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'مثال: 13671019'}))
-    password = forms.CharField(label='رمز', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    password = forms.CharField(label='رمز', widget=forms.TextInput(attrs={'class': 'form-control'}), initial="1")
+
+    def __init__(self, *args, **kwargs):
+        super(UserRegistrationForm, self).__init__(*args, **kwargs)
+        self.fields['melli'].required = False
+        self.fields['place'].required = False
 
 
 class UserUpdate(forms.Form):
