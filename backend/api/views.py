@@ -70,10 +70,10 @@ class UsersList(ListAPIView):
                 d = str.format("{}-{}-{}", convert_date[0], convert_date[1], convert_date[2])
                 return User.objects.filter(date__startswith=d)
             else:
-                return User.objects.all()
+                return User.objects.all()[:1000]
         except:
             print("error in return request Search")
-            return User.objects.all()
+            return User.objects.all()[:1000]
 
 
 def date_register(date):
