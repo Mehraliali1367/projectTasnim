@@ -70,7 +70,8 @@ class UsersList(ListAPIView):
                 return User.objects.filter(date__startswith=d)
             else:
                 return User.objects.all()
-        except:
+        except err:
+            print(err)
             return User.objects.all()
         finally:
             return User.objects.all()
