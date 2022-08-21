@@ -60,8 +60,9 @@ class UsersList(ListAPIView):
     def get_queryset(self):
         try:
             date = date_register(self.request.GET.get("date"))
+            print(date)
             if date:
-                convert_date = str(date).split('/')
+                convert_date = str(date).split('-')
                 if len(str(convert_date[1])) == 1:
                     convert_date[1] = "0" + convert_date[1]
                 if len(str(convert_date[2])) == 1:
@@ -70,10 +71,8 @@ class UsersList(ListAPIView):
                 return User.objects.filter(date__startswith=d)
             else:
                 return User.objects.all()
-        except err:
-            print(err)
-            return User.objects.all()
-        finally:
+        except:
+            print("error in return request Search")
             return User.objects.all()
 
 
