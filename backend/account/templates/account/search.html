@@ -28,7 +28,7 @@
                 </div>
             </div>
         </form>
-        <div class="row p-3">
+        <div class="row p-3" id="showuser">
             <table id="tbluser"
                    class="table table-bordered  text-align-center table-responsive-sm table-responsive-md">
                 <thead>
@@ -58,6 +58,7 @@
 let txt=document.querySelector("#txtobj");
 let btn=document.querySelector("#btnobj");
 let tbl=document.querySelector("#tbluser");
+let showuser=document.querySelector("#showuser");
 let count=0
 
 btndelete=document.querySelector('deleteuser')
@@ -112,7 +113,11 @@ async function getuser() {
         let data_send = new FormData();
         data_send.append("search_fields", "date");
         data_send.append("search",document.getElementById('obj').value );
+        let div_spinner=document.createElement("div");
+        div_spinner.className="spinner-border";
+        showuser.appendChild(div_spinner)
         const response = await axios.get('/api/users/',{params:{search:document.getElementById('obj').value,date:document.getElementById('obj_date').value}});
+
         recive = response.data;
         tbl.classList.add("table-bordered");
         recive.forEach((item) => {
@@ -195,6 +200,7 @@ async function getuser() {
                 timer: 2000
                 })
     }
+    showuser.removeChild(div_spinner)
 }
 </script>
 {% endblock script %}
