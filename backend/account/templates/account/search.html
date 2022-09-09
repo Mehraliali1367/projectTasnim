@@ -6,7 +6,9 @@
 {% endblock css %}
 
 {% block main %}
+
 <div class="col">
+
     <div class="card card-danger">
         <div class="card-header">
             <h3 class="card-title">فرم جستجو کاربر</h3>
@@ -113,11 +115,11 @@ async function getuser() {
         let data_send = new FormData();
         data_send.append("search_fields", "date");
         data_send.append("search",document.getElementById('obj').value );
-        let div_spinner=document.createElement("div");
-        div_spinner.className="spinner-border";
-        showuser.appendChild(div_spinner)
-        const response = await axios.get('/api/users/',{params:{search:document.getElementById('obj').value,date:document.getElementById('obj_date').value}});
 
+        btnobj.textContent="صبرکنید"
+
+        const response = await axios.get('/api/users/',{params:{search:document.getElementById('obj').value,date:document.getElementById('obj_date').value}});
+        btnobj.textContent="جستجو"
         recive = response.data;
         tbl.classList.add("table-bordered");
         recive.forEach((item) => {
@@ -202,5 +204,11 @@ async function getuser() {
     }
     showuser.removeChild(div_spinner)
 }
+
+
+
+
+
+
 </script>
 {% endblock script %}
