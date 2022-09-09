@@ -59,26 +59,35 @@ class UsersList(ListAPIView):
     def get_queryset(self, *args, **kwargs):
         try:
             req = self.request.GET.get("date", None)
+            print("%" * 100)
             if req:
                 date = date_register(req)
-                if res:
+                print("*" * 100)
+                print(date)
+                if date:
                     convert_date = str(date).split('-')
                     if len(str(convert_date[1])) == 1:
                         convert_date[1] = "0" + convert_date[1]
                     if len(str(convert_date[2])) == 1:
                         convert_date[2] = "0" + convert_date[2]
                     d = str.format("{}-{}-{}", convert_date[0], convert_date[1], convert_date[2])
-                    return User.objects.filter(date__startswith=d)[:1000]
+                    print(d)
+                    return User.objects.filter(date__startswith=d)
                 else:
-                    return User.objects.filter(is_admin=0).order_by('-date')[:1000]
+                    print("@" * 100)
+                    return User.objects.all()[:1000]
             else:
+                print("!" * 100)
                 search = self.request.GET.get("search", None)
                 if search:
-                    return User.objects.filter(is_admin=0).order_by('-date')[:1000]
+                    print("2!" * 100)
+                    return User.objects.filter(is_admin=0)
                 else:
-                    return User.objects.filter(is_admin=0).order_by('-date')[:1000]
+                    print("3!" * 100)
+                    return User.objects.filter(is_admin=0)
         except:
-            return User.objects.filter(is_admin=0).order_by('-date')[:1000]
+            print("$" * 100)
+            return User.objects.all()[:1000]
 
 
 def date_register(date):
