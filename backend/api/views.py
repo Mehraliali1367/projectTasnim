@@ -72,22 +72,22 @@ class UsersList(ListAPIView):
                         convert_date[2] = "0" + convert_date[2]
                     d = str.format("{}-{}-{}", convert_date[0], convert_date[1], convert_date[2])
                     print(d)
-                    return User.objects.filter(date__startswith=d)
+                    return User.objects.filter(date__startswith=d).order_by('-date')
                 else:
                     print("@" * 100)
-                    return User.objects.all()[:1000]
+                    return User.objects.all().order_by('-date')[:1000]
             else:
                 print("!" * 100)
                 search = self.request.GET.get("search", None)
                 if search:
                     print("2!" * 100)
-                    return User.objects.filter(is_admin=0)
+                    return User.objects.filter(is_admin=0).order_by('-date')
                 else:
                     print("3!" * 100)
-                    return User.objects.filter(is_admin=0)
+                    return User.objects.filter(is_admin=0).order_by('-date')
         except:
             print("$" * 100)
-            return User.objects.all()[:1000]
+            return User.objects.all().order_by('-date')[:1000]
 
 
 def date_register(date):
