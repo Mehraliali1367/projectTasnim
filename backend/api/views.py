@@ -52,8 +52,8 @@ class UsersList(ListAPIView):
 
     search_fields = [
         '^serial',
-        '@tel',
-        '@full_name',
+        '^tel',
+        '^full_name',
     ]
 
     def get_queryset(self, *args, **kwargs):
@@ -68,13 +68,13 @@ class UsersList(ListAPIView):
                     if len(str(convert_date[2])) == 1:
                         convert_date[2] = "0" + convert_date[2]
                     d = str.format("{}-{}-{}", convert_date[0], convert_date[1], convert_date[2])
-                    return User.objects.filter(date__startswith=d)
+                    return User.objects.filter(date__startswith=d)[:1000]
                 else:
-                    return User.objects.filter(is_admin=0).order_by('-date')
+                    return User.objects.filter(is_admin=0).order_by('-date')[:1000]
             else:
                 search = self.request.GET.get("search", None)
                 if search:
-                    return User.objects.filter(is_admin=0).order_by('-date')
+                    return User.objects.filter(is_admin=0).order_by('-date')[:1000]
                 else:
                     return User.objects.filter(is_admin=0).order_by('-date')[:1000]
         except:
