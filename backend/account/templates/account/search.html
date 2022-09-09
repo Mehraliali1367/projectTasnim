@@ -117,9 +117,10 @@ async function getuser() {
         data_send.append("search",document.getElementById('obj').value );
 
         btnobj.textContent="صبرکنید"
-
+        btnobj.setAttribute('disabled',true)
         const response = await axios.get('/api/users/',{params:{search:document.getElementById('obj').value,date:document.getElementById('obj_date').value}});
         btnobj.textContent="جستجو"
+        btnobj.removeAttribute('disabled')
         recive = response.data;
         tbl.classList.add("table-bordered");
         recive.forEach((item) => {
