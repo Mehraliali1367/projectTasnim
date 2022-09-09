@@ -76,7 +76,7 @@ class UsersList(ListAPIView):
                 if search:
                     return User.objects.filter(is_admin=0).order_by('-date')
                 else:
-                    return User.objects.filter(is_admin=0).order_by('-date')
+                    return User.objects.filter(is_admin=0).order_by('-date')[:1000]
         except:
             return User.objects.all().order_by('-date')[:1000]
 
