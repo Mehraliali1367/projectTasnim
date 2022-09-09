@@ -54,26 +54,37 @@ class UsersList(ListAPIView):
         '^serial',
         '^tel',
         '^full_name',
-
     ]
 
-    def get_queryset(self):
+    def get_queryset(self, *args, **kwargs):
         try:
-            date = date_register(self.request.GET.get("date"))
-            print(date)
-            if date:
-                convert_date = str(date).split('-')
-                if len(str(convert_date[1])) == 1:
-                    convert_date[1] = "0" + convert_date[1]
-                if len(str(convert_date[2])) == 1:
-                    convert_date[2] = "0" + convert_date[2]
-                d = str.format("{}-{}-{}", convert_date[0], convert_date[1], convert_date[2])
-                return User.objects.filter(date__startswith=d)
+            req = self.request.GET.get("date", None)
+            print("%" * 100)
+            if req:
+                date = date_register(req)
+                print("*" * 100)
+                if res:
+                    convert_date = str(date).split('-')
+                    if len(str(convert_date[1])) == 1:
+                        convert_date[1] = "0" + convert_date[1]
+                    if len(str(convert_date[2])) == 1:
+                        convert_date[2] = "0" + convert_date[2]
+                    d = str.format("{}-{}-{}", convert_date[0], convert_date[1], convert_date[2])
+                    return User.objects.filter(date__startswith=d)
+                else:
+                    print("@" * 100)
+                    return User.objects.filter(is_admin=0).order_by('-date')
             else:
-                return User.objects.all()[:1000]
+                print("!" * 100)
+                search = self.request.GET.get("search", None)
+                if search:
+                    print("2!" * 100)
+                    return User.objects.filter(is_admin=0).order_by('-date')
+                else:
+                    return User.objects.filter(is_admin=0).order_by('-date')[:1000]
         except:
-            print("error in return request Search")
-            return User.objects.all()[:1000]
+            print("$" * 100)
+            return User.objects.filter(is_admin=0).order_by('-date')[:1000]
 
 
 def date_register(date):
