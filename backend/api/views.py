@@ -52,7 +52,7 @@ class UsersList(ListAPIView):
 
     search_fields = [
         '^serial',
-        '٬@tel',
+        '@tel',
         '@full_name',
     ]
 
