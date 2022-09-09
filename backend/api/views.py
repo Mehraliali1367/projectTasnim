@@ -52,8 +52,8 @@ class UsersList(ListAPIView):
 
     search_fields = [
         '^serial',
-        '^tel',
-        '^full_name',
+        '٬@tel',
+        '@full_name',
     ]
 
     def get_queryset(self, *args, **kwargs):
