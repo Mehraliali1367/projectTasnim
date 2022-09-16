@@ -54,6 +54,7 @@ class UsersList(ListAPIView):
         '^serial',
         '^tel',
         '^full_name',
+        '^name',
     ]
 
     def get_queryset(self, *args, **kwargs):

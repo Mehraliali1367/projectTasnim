@@ -32,6 +32,7 @@
                     <th scope="col">نام پزشک</th>
                     <th scope="col">سریال بیمار</th>
                     <th scope="col">نام بیمار</th>
+                    <th scope="col">نام خانوادگی بیمار</th>
                     <th scope="col">موبایل بیمار</th>
                     <th scope="col">تاریخ</th>
                     <th scope="col">ساعت</th>
@@ -116,6 +117,7 @@ async function getuser() {
             let tddoctor=document.createElement("td")
             let tdserial=document.createElement("td")
             let tdname=document.createElement("td")
+            let tdfullname=document.createElement("td")
             let tdtel=document.createElement("td")
             let tddate=document.createElement("td")
             let tdhour=document.createElement("td")
@@ -136,12 +138,14 @@ async function getuser() {
             tddoctor.className="align-middle"
             tdserial.className="align-middle"
             tdname.className="align-middle"
+            tdfullname.className="align-middle"
             tdtel.className="align-middle"
             tddate.className="align-middle"
             tdhour.className="align-middle"
 
             tdnum.textContent=count
             tdname.textContent=item.user.name
+            tdfullname.textContent=item.user.full_name
             tdserial.textContent=item.user.serial
             tddoctor.textContent=item.doctor.name
             tdtel.textContent=item.user.tel
@@ -153,6 +157,7 @@ async function getuser() {
             tr.appendChild(tddoctor)
             tr.appendChild(tdserial)
             tr.appendChild(tdname)
+            tr.appendChild(tdfullname)
             tr.appendChild(tdtel)
             tr.appendChild(tddate)
             tr.appendChild(tdhour)

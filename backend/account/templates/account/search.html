@@ -18,7 +18,7 @@
                 <div class="col-md-3 col-sm-4 col-8 ">
                     {% csrf_token %}
                     <label for="obj">جستجو پیشرفته</label>
-                    <input type="text" id="obj" class="form-control" placeholder="سریال,موبایل,نام">
+                    <input type="text" id="obj" class="form-control" placeholder="سریال,موبایل,نام,نام خانوادگی">
                 </div>
                 <div class="col-md-3 col-sm-4 col-8 ">
                     {% csrf_token %}
@@ -38,6 +38,7 @@
                     <th scope="col">ردیف</th>
                     <th scope="col">سریال</th>
                     <th scope="col">نام</th>
+                    <th scope="col">نام خانوادگی</th>
                     <th scope="col">کدملی</th>
                     <th scope="col">تاریخ تولد</th>
                     <th scope="col">موبایل</th>
@@ -130,6 +131,7 @@ async function getuser() {
             let tdnum=document.createElement("td")
             let tdserial=document.createElement("td")
             let tdname=document.createElement("td")
+            let tdfullname=document.createElement("td")
             let tdmelli=document.createElement("td")
             let tdbrithday=document.createElement("td")
             let tdtel=document.createElement("td")
@@ -158,6 +160,7 @@ async function getuser() {
             tdnum.className="align-middle"
             tdserial.className="align-middle"
             tdname.className="align-middle"
+            tdfullname.className="align-middle"
             tdmelli.className="align-middle"
             tdbrithday.className="align-middle"
             tdtel.className="align-middle"
@@ -166,7 +169,8 @@ async function getuser() {
 
             tdnum.textContent=count
             tdserial.textContent=item.serial
-            tdname.textContent=item.full_name
+            tdname.textContent=item.name
+            tdfullname.textContent=item.full_name
             tdmelli.textContent=item.melli
             tdtel.textContent=item.tel
             tdadd.textContent=item.place
@@ -179,6 +183,7 @@ async function getuser() {
             tr.appendChild(tdnum)
             tr.appendChild(tdserial)
             tr.appendChild(tdname)
+            tr.appendChild(tdfullname)
             tr.appendChild(tdmelli)
             tr.appendChild(tdbrithday)
             tr.appendChild(tdtel)
