@@ -14,14 +14,14 @@
             <button id="send" class="btn btn-danger">ارسال</button>
         </div>
         <div class="col-12 m-4">
-            <button id="all-tel" class="btn btn-sm btn-secondary mt-2"> ارسال به همه شماره ها</button>
-            <button id="un-tel" class="btn btn-sm btn-secondary mt-2 ml-2"> عدم ارسال به همه شماره ها</button>
+            <button id="all-tel" class="btn btn-sm btn-secondary mt-2" hidden> ارسال به همه شماره ها</button>
+            <button id="un-tel" class="btn btn-sm btn-secondary mt-2 ml-2" hidden> عدم ارسال به همه شماره ها</button>
         </div>
         <div class="mx-auto">
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                     <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Previous">
+                        <a class="page-link" href="#" aria-label="Previous" hidden>
                             <span aria-hidden="true">&laquo;</span>
                             <span class="sr-only">Previous</span>
                         </a>
@@ -30,14 +30,14 @@
 
                     </div>
                     <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next">
+                        <a class="page-link" href="#" aria-label="Next" hidden>
                             <span aria-hidden="true">&raquo;</span>
                             <span class="sr-only">Next</span>
                         </a>
                     </li>
                 </ul>
             </nav>
-            <label class="mycolor">هرصفحه شامل 255 شماره تماس میباشد </label>
+            <label class="mycolor">هرصفحه شامل 200 شماره تماس میباشد </label>
         </div>
         <div class="">
             <div id="tels" class="form-group row m-2 border p-3">
@@ -110,9 +110,9 @@ async function get_count_users() {
          recive = response.data.users;
          console.log(recive)
          let counter=1;
-         if(recive>257){
-            counter=recive/99;
-            if((recive%99)>0){
+         if(recive>200){
+            counter=recive/200;
+            if((recive%200)>0){
                counter++;
             }
          }
