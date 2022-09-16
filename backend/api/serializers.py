@@ -13,4 +13,4 @@ class ImagesSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('serial', 'melli', 'full_name', 'brithday', 'place', 'date_register', 'tel')
+        fields = ('serial', 'melli', 'full_name', 'name', 'brithday', 'place', 'date_register', 'tel')

@@ -44,8 +44,10 @@ class UserLoginForm(forms.Form):
 class UserRegistrationForm(forms.Form):
     serial = forms.CharField(label='سریال', widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'برای وارد کردن سریال با رادیولوژی هماهنگ کنید'}))
-    full_name = forms.CharField(label='نام کامل', widget=forms.TextInput(
-        attrs={'class': 'form-control', 'placeholder': 'مثال: مرتضی حسینی'}))
+    full_name = forms.CharField(label='نام خانوادگی', widget=forms.TextInput(
+        attrs = {'class': 'form-control', 'placeholder': 'مثال: حسینی'}))
+    name = forms.CharField(label='نام', widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'مثال: مرتضی'}))
     melli = forms.CharField(label='کدملی',
                             widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'مثال: 0386022775'}))
     tel = forms.CharField(label='موبایل',
@@ -66,20 +68,22 @@ class UserRegistrationForm(forms.Form):
 class UserUpdate(forms.Form):
     serial = forms.CharField(label='سریال', disabled=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
     melli = forms.CharField(label='کدملی', disabled=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    full_name = forms.CharField(label='نام کامل', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    full_name = forms.CharField(label='نام خانوادگی', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    name = forms.CharField(label='نام', widget=forms.TextInput(attrs={'class': 'form-control'}))
     brithday = forms.IntegerField(label='تاریخ تولد',
                                   widget=forms.TextInput(attrs={'class': 'normal-example form-control '}))
     tel = forms.CharField(label='موبایل', widget=forms.TextInput(attrs={'class': 'form-control'}))
     place = forms.CharField(label='محل سکونت', widget=forms.TextInput(attrs={'class': 'form-control'}))
 
     class Meta:
-        fields = ('serial', 'melli', 'full_name', 'age', 'tel', 'place')
+        fields = ('serial', 'melli', 'full_name', 'name','age', 'tel', 'place')
 
 
 class ProfileForms(forms.ModelForm):
     serial = forms.CharField(label='سریال', widget=forms.TextInput(attrs={'class': 'form-control'}))
     melli = forms.CharField(label='کدملی', widget=forms.TextInput(attrs={'class': 'form-control'}))
-    full_name = forms.CharField(label='نام کامل', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    full_name = forms.CharField(label='نام خانوادگی', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    name = forms.CharField(label='نام', widget=forms.TextInput(attrs={'class': 'form-control'}))
     brithday = forms.IntegerField(label='تاریخ تولد',
                                   widget=forms.TextInput(attrs={'class': 'on-select-example form-control '}))
     tel = forms.CharField(label='موبایل', widget=forms.TextInput(attrs={'class': 'form-control'}))
@@ -96,7 +100,7 @@ class ProfileForms(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('serial', 'melli', 'full_name', 'brithday', 'tel', 'place')
+        fields = ('serial', 'melli', 'full_name', 'name','brithday', 'tel', 'place')
 
 
 class ImagesForm(forms.Form):

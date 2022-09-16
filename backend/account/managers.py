@@ -14,7 +14,7 @@ def serial_auto():
 
 
 class MyUserManager(BaseUserManager):
-    def create_user(self, serial, full_name, melli, tel, place, brithday, password):
+    def create_user(self, serial, full_name, name, melli, tel, place, brithday, password):
         if not serial:
             serial = serial_auto()
         if not full_name:
@@ -24,7 +24,8 @@ class MyUserManager(BaseUserManager):
         if not melli:
             raise ValueError('کد ملی صحیح نیست یا تکراری است')
 
-        user = self.model(serial=serial, full_name=full_name, melli=melli, tel=tel, place=place, brithday=brithday)
+        user = self.model(serial=serial, full_name=full_name, name=name, melli=melli, tel=tel, place=place,
+                          brithday=brithday)
         user.set_password(password)
         user.save(using=self._db)
         return user

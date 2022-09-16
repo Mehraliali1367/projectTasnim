@@ -8,16 +8,16 @@ from django.contrib.auth.models import Group
 class UserAdmin(BaseUserAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
-    list_display = ('serial', 'melli', 'full_name', 'brithday', 'tel', 'place','date_register', 'is_admin')
+    list_display = ('serial', 'melli', 'full_name','name', 'brithday', 'tel', 'place','date_register', 'is_admin')
     list_filter = ('is_admin',)
     fieldsets = (
-        ('اطلاعات کاربر', {'fields': ('serial', 'melli', 'full_name', 'brithday', 'tel', 'place','date', 'password')}),
+        ('اطلاعات کاربر', {'fields': ('serial', 'melli', 'full_name','name', 'brithday', 'tel', 'place','date', 'password')}),
         ('خصوصیات کاربر', {'fields': ('is_active',)}),
         ('سطح دسترسی', {'fields': ('is_admin',)})
     )
     add_fieldsets = (
         (None, {
-            'fields': ('serial','melli', 'full_name', 'brithday', 'tel', 'place','date', 'password1', 'password2')
+            'fields': ('serial','melli', 'full_name','name', 'brithday', 'tel', 'place','date', 'password1', 'password2')
         }),
     )
     search_fields = ('serial',)

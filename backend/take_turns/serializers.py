@@ -42,7 +42,8 @@ class VisitSerializer(serializers.ModelSerializer):
 
     def get_more_user(self, obj):
         return {
-            "name": obj.user.full_name,
+            "name": obj.user.name,
+            "full_name": obj.user.full_name,
             "serial": obj.user.serial,
             "tel": obj.user.tel
         }
