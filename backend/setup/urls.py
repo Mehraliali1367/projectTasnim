@@ -25,6 +25,6 @@ urlpatterns = [
     path('api/', include('api.urls', namespace='api')),
     path('api-auth/', include('rest_framework.urls')),
     path('api/token/', views.obtain_auth_token, name='api_token'),
-    path('comment/', include('comment.urls')),
+    # path('comment/', include('comment.urls')),
     path('suggestions/', include('suggestions.urls'), name='suggestions'),
 ]

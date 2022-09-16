@@ -3,5 +3,5 @@ from .views import Comments
 
 app_name = "suggestions"
 urlpatterns = [
-    path('', Comments.as_view(), name='comments')
+    # path('', Comments.as_view(), name='comments')
 ]
