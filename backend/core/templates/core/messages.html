@@ -161,15 +161,16 @@ async function getuser(page) {
                    div.append(label)
                    divTels.append(div)
 
-                    $(function () {
+
+
+         })
+           $(function () {
                         $('input').iCheck({
                         checkboxClass: 'icheckbox_square-red',
                         radioClass   : 'iradio_square-red',
                         increaseArea : '20%' // optional
                         })
                     })
-
-         })
          el_checkbox = document.querySelectorAll('#tel-status');
     }
     catch (error) {
@@ -177,6 +178,7 @@ async function getuser(page) {
          console.log(error)
     }
 };
+
 
 
 </script>
