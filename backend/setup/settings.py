@@ -42,11 +42,13 @@ INSTALLED_APPS = [
     'account.apps.AccountConfig',
     'core.apps.CoreConfig',
     'take_turns.apps.TakeTurnsConfig',
+    'suggestions.apps.SuggestionsConfig',
     # third-party apps
     'storages',
     'rest_framework',
     'rest_framework.authtoken',
     'django_filters',
+    'comment',
 ]
 
 MIDDLEWARE = [
@@ -98,14 +100,14 @@ WSGI_APPLICATION = 'setup.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'amin',
-        'USER': 'amin',
-        'PASSWORD': 'amin**',
-        'HOST': 'db',
-        'PORT': '5432',
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        # 'ENGINE': 'django.db.backends.postgresql',
+        # 'NAME': 'amin',
+        # 'USER': 'amin',
+        # 'PASSWORD': 'amin**',
+        # 'HOST': 'db',
+        # 'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
