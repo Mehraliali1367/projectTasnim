@@ -80,10 +80,10 @@ def save_images(sender, **kwargs):
                 'template': 'tasnim1'
             }
             response = api.verify_lookup(params)
-            print(str(response))
-            print("1111")
+            if response:
+                pass
         except APIException:
-            print("1111")
+            pass
 
 
 post_save.connect(save_images, sender=Images)

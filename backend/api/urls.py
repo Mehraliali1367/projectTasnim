@@ -19,5 +19,6 @@ urlpatterns = [
     path('users/', views.UsersList.as_view()),
     path('countusers/', views.CountUsers.as_view()),
     path('ListUsers/', views.ListUsers.as_view()),
+    path('sendmessage/', views.SendMessage.as_view()),
 
 ]

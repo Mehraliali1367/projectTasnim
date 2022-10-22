@@ -8,6 +8,7 @@ from django.http import JsonResponse
 from django.views import View
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import extensions.jalali as jalali
+from kavenegar import *
 
 
 class Images(CreateAPIView):
@@ -36,14 +37,14 @@ class Images(CreateAPIView):
 #     'event_city__name': ['exact'], 'event_tag__name': ['exact']
 # }
 
-class DynamicSearchFilter(filters.SearchFilter):
-    def get_search_fields(self, view, request):
-        list = request.GET.getlist('search_fields', [])
-        return list
-
-        def date_register(date):
-            print("*" * 100)
-            return jalali.Persian(date).gregorian_string()
+# class DynamicSearchFilter(filters.SearchFilter):
+#     def get_search_fields(self, view, request):
+#         list = request.GET.getlist('search_fields', [])
+#         return list
+#
+#         def date_register(date):
+#             print("*" * 100)
+#             return jalali.Persian(date).gregorian_string()
 
 
 class UsersList(ListAPIView):
@@ -136,3 +137,40 @@ class ListUsers(ListAPIView):
         except EmptyPage:
             users = paginator.page(paginator.num_pages)
         return users
+
+
+class SendMessage(View):
+    def get(self):
+        pass
+
+    def post(self, request):
+        description = (request.POST.get('arry_description')).split(',')
+        arry = (request.POST.get('arry_tell')).split(',')
+        sender = (request.POST.get('arry_sender')).split(',')
+        print("t" * 100)
+        # test=arry.split(',')
+        print(arry)
+        # print(test)
+        print(description)
+        print(sender)
+        try:
+            api = KavenegarAPI(
+                '4C6A7A6F556F6A68766F444466794278494C3738383433727239755636732B4831786E2B7653516C376C493D')
+            params = {
+                'receptor': f'{arry}',
+                'sender': f'{sender}',
+                'message': f'{description}',
+            }
+            print("a" * 100)
+            response = api.sms_sendarray(params)
+            print(response)
+            print("b" * 100)
+            if response:
+                print("#" * 100)
+                print(response)
+            return JsonResponse({"status": 'Success'})
+
+        except Exception as e:
+            print("c" * 100)
+            print(e)
+            return JsonResponse({"status": 'Error'})

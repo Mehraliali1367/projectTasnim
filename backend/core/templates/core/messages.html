@@ -14,8 +14,8 @@
             <button id="send" class="btn btn-danger">ارسال</button>
         </div>
         <div class="col-12 m-4">
-            <button id="all-tel" class="btn btn-sm btn-secondary mt-2" hidden> ارسال به همه شماره ها</button>
-            <button id="un-tel" class="btn btn-sm btn-secondary mt-2 ml-2" hidden> عدم ارسال به همه شماره ها</button>
+            <button id="all-tel" class="btn btn-sm btn-secondary mt-2" > ارسال به همه شماره ها</button>
+            <button id="un-tel" class="btn btn-sm btn-secondary mt-2 ml-2" > عدم ارسال به همه شماره ها</button>
         </div>
         <div class="mx-auto">
             <nav aria-label="Page navigation example">
@@ -39,13 +39,11 @@
             </nav>
             <label class="mycolor">هرصفحه شامل 200 شماره تماس میباشد </label>
         </div>
-        <div class="">
-            <div id="tels" class="form-group row m-2 border p-3">
-                <label>
-                    <input type="checkbox" class="icheckbox_minimal-red">
-                    09127583171
-                </label>
-            </div>
+        <div id="tels" class="form-group row m-2 border p-3">
+            <label>
+                <input type="checkbox" class="icheckbox_minimal-red">
+                09127583171
+            </label>
         </div>
     </div>
 </div>
@@ -55,8 +53,6 @@
 <script src="{% static 'my_change/js/axios.min.js' %}"></script>
 
 <script type="text/javascript">
-
-
 let el_checkbox=null;
 let obj_tell=[]
 let divTels=document.querySelector("#tels");
@@ -65,39 +61,70 @@ let btn=document.querySelector("#send");
 let btn_all_tell=document.querySelector("#all-tel");
 let btn_un_tell=document.querySelector("#un-tel");
 
+
+
+
 divTels.innerHTML=""
 btn.addEventListener(
 'click',
 function(event) {
     obj_tell=[];
+    obj_des=[];
+    obj_sender=[];
     event.preventDefault()
     var i=0;
-    el_checkbox.forEach(element => {
-        if((element.firstElementChild).classList[1] === 'checked'){
-              obj_tell[i] = element.innerText;
-              i=i+1;
+   document.querySelectorAll('input').forEach( input => {
+        if(input.checked){
+            obj_tell[i]=input.getAttribute('id');
+            i=i+1;
         }
+    });
+    list_tell=[...new Set(obj_tell)]
+    textmessage=document.querySelector("#messages").value;
+    for(let j=0;list_tell.length>j;j++){
+        obj_des[j]=textmessage;
+        obj_sender[j]='2000500666'
+    }
+    console.log(list_tell)
+    console.log(obj_des)
+      let data = new FormData(); // 2
+      data.append("arry_description", obj_des);
+      data.append("arry_tell",list_tell)
+      data.append("arry_sender",obj_sender)
+      data.append("csrfmiddlewaretoken", '{{csrf_token}}');
+      axios.post('/api/sendmessage/', data) // 4<!--
+        .then(res =>
+            Swal.fire({
+                position: 'top',
+                icon: 'success',
+                title: 'پزشک  در روز مورد ' + date_per(document.getElementById('pdate').value) + 'ذخیره شد',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        ) // 5
+        .catch(errors =>
 
-    })
-        console.log(obj_tell)
+              Swal.fire({
+                position: 'top',
+                icon: 'error',
+                title: 'بامشکل مواجه شدید,دوباره سعی کنید!',
+                showConfirmButton: false,
+                timer: 1500
+                })
+        )
 });
 btn_all_tell.addEventListener(
 'click',
 function(event) {
-    el_checkbox.forEach(element => {
-        if((element.firstElementChild).classList[0] === 'icheckbox_square-red'){
-              (element.firstElementChild).classList.add('checked')
-        }
+     el_checkbox.forEach(element => {
+              (element).setAttribute('checked',true)
     })
 });
 btn_un_tell.addEventListener(
 'click',
 function(event) {
     el_checkbox.forEach(element => {
-        console.log(element)
-        if((element.firstElementChild).classList[1] === 'checked'){
-              (element.firstElementChild).classList.remove('checked')
-        }
+              (element).removeAttribute('checked')
     })
 });
 
@@ -137,6 +164,13 @@ async function get_count_users() {
     console.log("eeeeeeeeeeeeeeeeeeror")
     console.log(error)
                 }};
+function ChangeState(id){
+    input=document.getElementById(id)
+    if(input.getAttribute('checked'))
+         input.removeAttribute('checked')
+    else
+        input.setAttribute('checked',true)
+}
 async function getuser(page) {
     try {
         console.log("page="+page)
@@ -144,33 +178,29 @@ async function getuser(page) {
          const response = await axios.get('/api/ListUsers/',{params:{obj:page}});
          recive = response.data;
          recive.forEach((item) => {
+            if((item.tel).length>9 & (item.tel).length<12){
                    let div=document.createElement("div");
                    div.className="col-md-4 col-6"
                    let label=document.createElement("label");
-                   label.setAttribute('id','tel-status')
+                   let span=document.createElement("span");
+                   span.addEventListener('click', function handleClick(event) {
+                        ChangeState((event.target).getAttribute("name"))
+                    });
+                   span.setAttribute('name',item.tel)
                    label.className="p-1"
                    let input=document.createElement("input");
-                   input.className="icheckbox_minimal-red";
+                   input.className="checkbox-flip";
                    input.setAttribute('type','checkbox');
-                   input.setAttribute('id','my-checkbox');
-                   input.setAttribute('name',item.tel);
+                   input.setAttribute('id',item.tel);
                    input.setAttribute('checked',true);
                    var text=item.tel
-                   label.append(input);
+                   label.append(span);
+                   div.append(input);
                    label.append(text);
                    div.append(label)
                    divTels.append(div)
-
-
-
+            }
          })
-           $(function () {
-                        $('input').iCheck({
-                        checkboxClass: 'icheckbox_square-red',
-                        radioClass   : 'iradio_square-red',
-                        increaseArea : '20%' // optional
-                        })
-                    })
          el_checkbox = document.querySelectorAll('#tel-status');
     }
     catch (error) {
@@ -178,8 +208,6 @@ async function getuser(page) {
          console.log(error)
     }
 };
-
-
 
 </script>
 {% endblock script %}
