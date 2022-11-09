@@ -11,7 +11,7 @@ from extensions.utils import jalali_converter
 
 class User(AbstractUser):
     serial = models.CharField(max_length=20, primary_key=True, unique=True, verbose_name='سریال')
-    melli = models.CharField(max_length=10, unique=True, blank=True, null=True, verbose_name='کدملی')
+    melli = models.CharField(max_length=10, blank=True, null=True, verbose_name='کدملی')
     username = models.CharField(max_length=10, blank=True, null=True)
     full_name = models.CharField(max_length=500, verbose_name='نام خانوادگی')
     name = models.CharField(max_length=500, blank=True, null=True, verbose_name='نام ')
