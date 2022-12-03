@@ -162,6 +162,6 @@ AWS_ACCESS_KEY_ID = '73971646-f8eb-4590-879d-d21174ece296'
 AWS_SECRET_ACCESS_KEY = '94a67bcd50c06ff9dc8b24d80b06281d929c6cbe56d2959bc820e1cf2322ea81'
 AWS_STORAGE_BUCKET_NAME = 'tsmimg'
 AWS_SERVICE_NAME = 's3'
-AWS_S3_ENDPOINT_URL = 'https://s3.ir-thr-at1.arvanstorage.com'
+AWS_S3_ENDPOINT_URL = 'https://s3.ir-thr-at1.arvanstorage.ir'
 AWS_S3_FILE_OVERWRITE = False
 AWS_LOCAL_STORAGE = f'{BASE_DIR}/aws/'

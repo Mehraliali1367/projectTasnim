@@ -83,7 +83,7 @@ class UserRegister(View):
             serial = check_serial(cd['serial'])
             if serial:
                 melli = melli_auto(cd['melli'])
-                User.objects.create_user(cd['serial'], cd['full_name'],cd['name'], melli, cd['tel'], cd['place'], cd['brithday'],
+                User.objects.create_user(cd['serial'], cd['full_name'], cd['tel'],cd['name'], melli, cd['place'], cd['brithday'],
                                          cd['password'])
                 messages.success(request, 'کاربر جدید اضافه شد', 'success')
                 return redirect('core:home')
