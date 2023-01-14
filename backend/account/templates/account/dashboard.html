@@ -1,6 +1,6 @@
 {% extends 'inc/base.html' %}
 {% block main %}
-115.3
+
 <p class="mb-3 mt-3">{{user.full_name}}</p>
 {% for img in user.images.all %}
 <img src="{{ img.image.url }}" style="height:200px;width:200px" >
