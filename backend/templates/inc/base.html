@@ -1,0 +1,134 @@
+{% load static %}
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="enamad" content="944741"/>
+    <title>
+        {% block title %}
+        تسنیم
+
+
+        {% endblock %}
+
+    </title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Font Awesome -->
+
+    <!-- Ionicons -->
+
+    <!-- daterange picker -->
+    <link rel="shortcut icon" href="{% static 'my_change/images/icon/icon5.png' %}">
+    <link rel="stylesheet" href="{% static 'adminlt/plugins/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'adminlt/plugins/iCheck/all.css' %}">
+    <link rel="stylesheet" href="{% static 'adminlt/dist/css/bootstrap-rtl.min.css' %}">
+    <link rel="stylesheet" href="{% static 'adminlt/dist/css/adminlte.min.css' %}">
+    <link rel="stylesheet" href="{% static 'adminlt/dist/css/bootstrap-rtl.min.css' %}">
+    <link rel="stylesheet" href="{% static 'adminlt/dist/css/custom-style.css' %}">
+    <link rel="stylesheet" href="{% static 'adminlt/dist/css/persian-datepicker.min.css' %}">
+    <link rel="stylesheet" href="{% static 'my_change/css/mycss.css' %}">
+    <link rel="stylesheet" href="{% static 'my_change/css/jspc-gray.css' %}">
+
+    {% block css %}
+    {% endblock css %}
+
+</head>
+<body class="hold-transition sidebar-mini sidebar-collapse">
+
+<div class="wrapper">
+
+    <!-- Navbar -->
+    {% include 'inc/navbar.html' %}
+    <div class="mt-3">
+        {% include 'inc/messages.html' %}
+    </div>
+
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <!-- Brand Logo -->
+        <a href="#" class="brand-link">
+            <img src="{% static 'my_change/images/icon/icon5.png' %}" alt=""
+                 class="brand-image img-circle elevation-3"
+                 style="opacity: .8">
+            <span class="brand-text font-weight-light">تسنیم</span>
+        </a>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div>
+                <!-- Sidebar user panel (optional) -->
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                    <div class="image">
+                        <!--                        {#<img src="{%  static 'my_change/images/icon/bmi.png' %}" class="img-circle elevation-2" alt="User Image">#}-->
+                    </div>
+                    <div class="info">
+                        <a href="#" class="d-block">{{user.full_name}}</a>
+                    </div>
+                </div>
+
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                        data-accordion="false">
+                        <!-- Add icons to the links using the .nav-icon class
+                             with font-awesome or any other icon font library -->
+
+                        {% include 'inc/sidebarMenu.html' %}
+                    </ul>
+                </nav>
+                <!-- /.sidebar-menu -->
+            </div>
+        </div>
+        <!-- /.sidebar -->
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="main-wrapper mt-2">
+
+            {% block main %}{% endblock %}
+
+        </div>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <footer class="main-footer">
+        <strong>&copy; 1401 <a href="http://vida-prog.ir"> برنامه نویسی ویدا</a>.</strong>
+        <a referrerpolicy="origin" target="_blank" href="https://trustseal.enamad.ir/?id=303656&amp;Code=cZ8nwXWibUQKE2TecTfz"><img referrerpolicy="origin" src="https://Trustseal.eNamad.ir/logo.aspx?id=303656&amp;Code=cZ8nwXWibUQKE2TecTfz" alt="" style="cursor:pointer" id="cZ8nwXWibUQKE2TecTfz"></a>
+    </footer>
+
+    <!-- Control Sidebar -->
+
+    <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script src="{% static 'adminlt/plugins/jquery/jquery.min.js' %}"></script>
+<!-- Bootstrap -->
+<script src="{% static 'adminlt/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<!-- AdminLTE -->
+<script src="{% static 'adminlt/dist/js/adminlte.js' %}"></script>
+
+<!-- OPTIONAL SCRIPTS -->
+<!--<script src="{% static 'adminlt/plugins/chart.js/Chart.min.js' %}"></script>-->
+<script src="{% static 'adminlt/dist/js/demo.js' %}"></script>
+<script src="{% static 'adminlt/plugins/iCheck/icheck.min.js' %}"></script>
+<script>
+</script>
+<!-- Page script -->
+
+<!--persian Calander-->
+<script type="text/javascript" src="{% static 'adminlt/dist/js/persian-date.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'adminlt/dist/js/persian-datepicker.min.js' %}"></script>
+
+
+
+{% block script %}{% endblock %}
+</body>
+</html>

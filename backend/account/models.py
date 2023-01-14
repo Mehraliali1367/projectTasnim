@@ -10,17 +10,24 @@ from extensions.utils import jalali_converter
 
 
 class User(AbstractUser):
-    serial = models.CharField(max_length=20, primary_key=True, unique=True, verbose_name='سریال')
-    melli = models.CharField(max_length=10, blank=True, null=True, verbose_name='کدملی')
+    serial = models.CharField(
+        max_length=20, primary_key=True, unique=True, verbose_name='سریال')
+    melli = models.CharField(max_length=10, blank=True,
+                             null=True, verbose_name='کدملی')
     username = models.CharField(max_length=10, blank=True, null=True)
     full_name = models.CharField(max_length=500, verbose_name='نام خانوادگی')
-    name = models.CharField(max_length=500, blank=True, null=True, verbose_name='نام ')
+    name = models.CharField(max_length=500, blank=True,
+                            null=True, verbose_name='نام ')
     brithday = models.IntegerField(verbose_name='سن', blank=True, null=True)
-    place = models.CharField(max_length=500, verbose_name='محل سکونت', blank=True, null=True)
+    place = models.CharField(
+        max_length=500, verbose_name='محل سکونت', blank=True, null=True)
     tel = models.CharField(max_length=20, verbose_name='موبایل')
-    date = models.DateTimeField(default=timezone.now, verbose_name='تاریخ عضویت')
+    date = models.DateTimeField(
+        default=timezone.now, verbose_name='تاریخ عضویت')
     is_admin = models.BooleanField(default=False, verbose_name='کاربر ارشد')
     is_active = models.BooleanField(default=True, verbose_name='فعال')
+    is_reception = models.BooleanField(
+        default=False, blank=True, null=True, verbose_name='پذیرش')
     objects = managers.MyUserManager()
     USERNAME_FIELD = 'serial'
     REQUIRED_FIELDS = ('full_name', 'tel')
@@ -50,7 +57,8 @@ class User(AbstractUser):
 
 
 class Images(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='images')
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='images')
     image = models.ImageField(default='1.jpg')
     objects = models.Manager()
 

@@ -1,0 +1,27 @@
+{% extends 'inc/base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'my_change/css/jspc-gray.css' %}">
+{% endblock css %}
+{% block main %}
+<div class="col">
+    <div class="card card-danger">
+        <div class="card-header">
+            <h3 class="card-title">فرم تعریف خدمات</h3>
+        </div>
+        <div class="row">
+            <div class="col-md-5 col-sm-6 col-12 m-3">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" value="ذخیره" class="btn btn-dark"/>
+                </form>
+            </div>
+            <div class="col-md-6 col-sm-6 m-4">
+                <img class="card-img" src="{% static 'my_change/images/icon/icon6.jpeg' %}">
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main%}
+
