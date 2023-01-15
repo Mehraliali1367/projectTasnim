@@ -1,7 +1,7 @@
 from django.urls import path
-from .views import Comments
+from .views import QuestionView
 
 app_name = "suggestions"
 urlpatterns = [
-    path('', Comments.as_view(), name='comments')
+    path('',QuestionView.as_view(), name='Question')
 ]

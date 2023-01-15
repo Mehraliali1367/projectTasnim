@@ -1,6 +1,70 @@
 from django.db import models
 from account.models import User
+from extensions.utils import jalali_converter
+from django.utils import timezone
 
 
-class Evaluation(models.Model):
-    
+# class Evaluation(models.Model):
+#     STATUS_CHOICES = (
+#         ('a', 'کاملا راضی'),
+#         ('b', 'راضی'),
+#         ('c', 'ناراضی'),
+#         ('d', 'کاملا ناراضی'),
+#     )
+#     STATUS_CHOICES2 = (
+#         ('y', 'بله'),
+#         ('n', 'خیر'),
+#     )
+#     clark = models.ForeignKey(
+#         User, on_delete=models.CASCADE, related_name="منشی")
+#     s1 = models.CharField(
+#         max_length=1, choices=STATUS_CHOICES, verbose_name='سوال1')
+#     s2 = models.CharField(
+#         max_length=1, choices=STATUS_CHOICES, verbose_name='سوال2')
+#     s3 = models.CharField(
+#         max_length=1, choices=STATUS_CHOICES, verbose_name='سوال3')
+#     s4 = models.CharField(
+#         max_length=1, choices=STATUS_CHOICES, verbose_name='سوال4')
+#     s5 = models.CharField(
+#         max_length=1, choices=STATUS_CHOICES, verbose_name='سوال5')
+#     s6 = models.CharField(
+#         max_length=1, choices=STATUS_CHOICES, verbose_name='سوال6')
+#     s7 = models.CharField(
+#         max_length=1, choices=STATUS_CHOICES, verbose_name='سوال7')
+#     s8 = models.CharField(
+#         max_length=1, choices=STATUS_CHOICES, verbose_name='سوال8')
+#     s9 = models.CharField(
+#         max_length=1, choices=STATUS_CHOICES, verbose_name='سوال9')
+#     s10 = models.CharField(
+#         max_length=1, choices=STATUS_CHOICES, verbose_name='سوال10')
+#     s11 = models.CharField(
+#         max_length=1, choices=STATUS_CHOICES, verbose_name='سوال11')
+#     s12 = models.CharField(
+#         max_length=1, choices=STATUS_CHOICES2, verbose_name='سوال12')
+#     s13 = models.TextField(verbose_name="پیشنهادات")
+#     date = models.DateTimeField(
+#         default=timezone.now, verbose_name='تاریخ ایجاد')
+
+#     def date_register(self):
+#         return jalali_converter(self.date)
+
+
+# Create your models here.
+class QuesModel(models.Model):
+    question = models.CharField(max_length=500, null=True)
+    op1 = models.CharField(max_length=200, null=True, verbose_name='گزینه 1')
+    op2 = models.CharField(max_length=200, null=True, verbose_name='گزینه 2')
+    op3 = models.CharField(max_length=200, null=True, verbose_name='گزینه 3')
+    op4 = models.CharField(max_length=200, null=True, verbose_name='گزینه 4')
+    ans_op1=models.IntegerField(null=True,default=0,verbose_name='تعدادانتخاب گزینه op1')
+    ans_op2=models.IntegerField(null=True,default=0,verbose_name='تعدادانتخاب گزینه op2')
+    ans_op3=models.IntegerField(null=True,default=0,verbose_name='تعدادانتخاب گزینه op3')
+    ans_op4=models.IntegerField(null=True,default=0,verbose_name='تعدادانتخاب گزینه op4')
+    date = models.DateTimeField(
+        default=timezone.now, verbose_name='تاریخ ایجاد')
+
+    def __str__(self):
+        return self.question
+
+    def date_register(self):
+        return jalali_converter(self.date)

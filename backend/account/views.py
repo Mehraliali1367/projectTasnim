@@ -93,7 +93,7 @@ class UserRegister(View):
         else:
             messages.error(request, 'ورودی ها را چک کنید', 'error')
             return render(request, 'account/register.html', {'form': form})
-
+        
 
 class Profile(LoginRequiredMixin, UpdateView):
     form_class = forms.ProfileForms
