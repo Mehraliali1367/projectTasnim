@@ -56,15 +56,35 @@ class QuesModel(models.Model):
     op2 = models.CharField(max_length=200, null=True, verbose_name='گزینه 2')
     op3 = models.CharField(max_length=200, null=True, verbose_name='گزینه 3')
     op4 = models.CharField(max_length=200, null=True, verbose_name='گزینه 4')
-    ans_op1=models.IntegerField(null=True,default=0,verbose_name='تعدادانتخاب گزینه op1')
-    ans_op2=models.IntegerField(null=True,default=0,verbose_name='تعدادانتخاب گزینه op2')
-    ans_op3=models.IntegerField(null=True,default=0,verbose_name='تعدادانتخاب گزینه op3')
-    ans_op4=models.IntegerField(null=True,default=0,verbose_name='تعدادانتخاب گزینه op4')
+    date = models.DateTimeField(
+        default=timezone.now, verbose_name='تاریخ ایجاد')
+    class Meta:
+        verbose_name='سوال'
+        verbose_name_plural='پرسش ها'
+        ordering = ['-date']
     date = models.DateTimeField(
         default=timezone.now, verbose_name='تاریخ ایجاد')
 
     def __str__(self):
         return self.question
+
+    def date_register(self):
+        return jalali_converter(self.date)
+
+class ResultModel(models.Model):
+    question=models.ForeignKey(QuesModel,on_delete=models.CASCADE,related_name='results',verbose_name='سوال')
+    user=models.ForeignKey(User,on_delete=models.CASCADE,related_name='results',verbose_name='پاسخ دهنده')
+    ans=models.CharField(max_length=200,null=True,verbose_name='گزینه انتخاب شده')
+    date = models.DateTimeField(
+        default=timezone.now, verbose_name='تاریخ ایجاد')
+    
+    class Meta:
+        verbose_name='پاسخ'
+        verbose_name_plural='پاسخ ها'
+        ordering = ['-date']
+        
+    def __str__(self):
+        return self.question.question
 
     def date_register(self):
         return jalali_converter(self.date)

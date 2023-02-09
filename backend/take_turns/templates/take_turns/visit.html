@@ -96,13 +96,13 @@
           </div>
           <!--                </div>-->
           <div class="mt-3">
-            <label for="serial">سریال بیمار</label><br />
+            <label for="melli">کد بیمار</label><br />
             <input
               type="text"
-              name="serial"
-              id="serial"
+              name="melli"
+              id="melli"
               class="form-control"
-              value="{{user.serial}}"
+              value="{{user.melli}}"
             />
           </div>
           <div class="mt-3">
@@ -260,11 +260,11 @@
     // 1
     event.preventDefault();
     data_send.delete("hour");
-    data_send.delete("serial");
+    data_send.delete("melli");
     data_send.append("doctor", namedoc.options[namedoc.selectedIndex].id);
     data_send.append("date", date_per(document.getElementById("pdate").value));
     data_send.append("hour", document.querySelector("#hour-visit").innerText);
-    data_send.append("serial", document.getElementById("serial").value);
+    data_send.append("melli", document.getElementById("melli").value);
     data_send.append("csrfmiddlewaretoken", "{{csrf_token}}");
 
     axios

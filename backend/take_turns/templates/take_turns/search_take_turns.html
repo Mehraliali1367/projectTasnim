@@ -30,7 +30,7 @@
                 <tr>
                     <th scope="col">ردیف</th>
                     <th scope="col">نام پزشک</th>
-                    <th scope="col">سریال بیمار</th>
+                    <th scope="col">کد بیمار</th>
                     <th scope="col">نام بیمار</th>
                     <th scope="col">نام خانوادگی بیمار</th>
                     <th scope="col">موبایل بیمار</th>
@@ -115,9 +115,9 @@ async function getuser() {
 
             let tdnum=document.createElement("td")
             let tddoctor=document.createElement("td")
-            let tdserial=document.createElement("td")
-            let tdname=document.createElement("td")
-            let tdfullname=document.createElement("td")
+            let tdmelli=document.createElement("td")
+            let tdfirst_name=document.createElement("td")
+            let tdlast_name=document.createElement("td")
             let tdtel=document.createElement("td")
             let tddate=document.createElement("td")
             let tdhour=document.createElement("td")
@@ -136,17 +136,17 @@ async function getuser() {
             tr.className="text-center"
             tdnum.className="align-middle"
             tddoctor.className="align-middle"
-            tdserial.className="align-middle"
-            tdname.className="align-middle"
-            tdfullname.className="align-middle"
+            tdmelli.className="align-middle"
+            tdfirst_name.className="align-middle"
+            tdlast_name.className="align-middle"
             tdtel.className="align-middle"
             tddate.className="align-middle"
             tdhour.className="align-middle"
 
             tdnum.textContent=count
-            tdname.textContent=item.user.name
-            tdfullname.textContent=item.user.full_name
-            tdserial.textContent=item.user.serial
+            tdfirst_name.textContent=item.user.first_name
+            tdlast_name.textContent=item.user.last_name
+            tdmelli.textContent=item.user.melli
             tddoctor.textContent=item.doctor.name
             tdtel.textContent=item.user.tel
             tdhour.textContent=item.hour
@@ -155,9 +155,9 @@ async function getuser() {
 
             tr.appendChild(tdnum)
             tr.appendChild(tddoctor)
-            tr.appendChild(tdserial)
-            tr.appendChild(tdname)
-            tr.appendChild(tdfullname)
+            tr.appendChild(tdmelli)
+            tr.appendChild(tdfirst_name)
+            tr.appendChild(tdlast_name)
             tr.appendChild(tdtel)
             tr.appendChild(tddate)
             tr.appendChild(tdhour)

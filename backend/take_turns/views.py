@@ -78,9 +78,9 @@ class Visit(View):
         doctor = request.POST.get('doctor')
         datetime_persian = request.POST.get('date')
         hour = request.POST.get('hour')
-        user = request.POST.get('serial')
+        melli = request.POST.get('melli')
         instance_doctor = get_object_or_404(models.Doctor, id=doctor)
-        instance_user = get_object_or_404(User, serial=user)
+        instance_user = get_object_or_404(User, melli=melli)
         models.Visit.objects.create(
             doctor=instance_doctor,
             datetime_persian=datetime_persian,

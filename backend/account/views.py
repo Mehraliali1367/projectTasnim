@@ -47,12 +47,17 @@ class UserLogin(View):
 
     def post(self, request):
         form = self.form_class(request.POST)
+        print("*"*100)
+        print(request.POST)
         if form.is_valid():
+            print("1"*100)
             cd = form.cleaned_data
-            user = authenticate(request, serial=cd['serial'], password=cd['password'])
+            test=get_object_or_404(User,melli=cd['melli'])
+            print("test")
+            user = authenticate(request, melli=cd['melli'], password=cd['password'])
             if user is not None:
                 login(request, user)
-                messages.success(request, f'کاربر گرامی {user.full_name}', 'success')
+                messages.success(request, f'کاربر گرامی {user.first_name} {user.last_name}', 'success')
                 return redirect('core:home')
             else:
                 messages.error(request, 'خطا در ورود به سیستم', 'danger')
@@ -80,10 +85,10 @@ class UserRegister(View):
         form = self.form_class(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
-            serial = check_serial(cd['serial'])
-            if serial:
-                melli = melli_auto(cd['melli'])
-                User.objects.create_user(cd['serial'], cd['full_name'], cd['tel'],cd['name'], melli, cd['place'], cd['brithday'],
+            melli = check_serial(cd['melli'])
+            if melli:
+                # melli = melli_auto(cd['melli'])
+                User.objects.create_user(cd['melli'] , cd['tel'], cd['first_name'], cd['last_name'], cd['year_brithday'],
                                          cd['password'])
                 messages.success(request, 'کاربر جدید اضافه شد', 'success')
                 return redirect('core:home')
@@ -97,7 +102,7 @@ class UserRegister(View):
 
 class Profile(LoginRequiredMixin, UpdateView):
     form_class = forms.ProfileForms
-    success_url = reverse_lazy('account:profile')
+    success_url = reverse_lazy('core:home')
     template_name = 'account/profile.html'
 
     def get_object(self):
@@ -115,18 +120,18 @@ class Dashboard(View):
     template_name = 'account/dashboard.html'
     form_class = forms.ImagesForm
 
-    def get(self, request, serial):
-        user = get_object_or_404(User, serial=serial)
+    def get(self, request, melli):
+        user = get_object_or_404(User, melli=melli)
         return render(request, self.template_name, {'user': user, 'form': self.form_class})
 
-    def post(self, request, serial):
+    def post(self, request, melli):
         form = self.form_class(request.POST, request.FILES)
         if form.is_valid():
             cd = form.cleaned_data
-            user = get_object_or_404(User, serial=serial)
+            user = get_object_or_404(User, melli=melli)
             Images.objects.create(user=user, image=cd['img'])
-            messages.success(request, 'your image updated successfully', 'info')
-            return redirect('account:dashboard', user.serial)
+            messages.success(request, 'تصویر با موفقیت بارگذاری شد', 'info')
+            return redirect('account:dashboard', user.melli)
 
 
 class Edit(LoginRequiredMixin, AdminAccessMixin, UpdateView):
@@ -135,7 +140,7 @@ class Edit(LoginRequiredMixin, AdminAccessMixin, UpdateView):
     template_name = 'account/edit.html'
 
     def get_object(self):
-        return User.objects.get(serial=self.request.GET["serial"])
+        return User.objects.get(melli=self.request.GET["melli"])
 
     def get_form_kwargs(self):
         kwargs = super(Edit, self).get_form_kwargs()

@@ -52,10 +52,10 @@ class UsersList(ListAPIView):
     serializer_class = UserSerializer
 
     search_fields = [
-        '^serial',
+        '^melli',
         '^tel',
-        '^full_name',
-        '^name',
+        '^first_name',
+        '^last_name',
     ]
 
     def get_queryset(self, *args, **kwargs):
@@ -107,8 +107,8 @@ class DeleteAccount(RetrieveUpdateDestroyAPIView):
     # permission_classes = [permissions.IsAuthenticated]
 
     def delete(self, request, *args, **kwargs):
-        serial = self.request.GET.get('obj', None)
-        user = User.objects.get(serial=serial)
+        melli = self.request.GET.get('obj', None)
+        user = User.objects.get(melli=melli)
         user.delete()
 
         return Response({status.HTTP_200_OK})

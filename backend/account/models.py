@@ -10,30 +10,25 @@ from extensions.utils import jalali_converter
 
 
 class User(AbstractUser):
-    serial = models.CharField(
-        max_length=20, primary_key=True, unique=True, verbose_name='سریال')
-    melli = models.CharField(max_length=10, blank=True,
-                             null=True, verbose_name='کدملی')
-    username = models.CharField(max_length=10, blank=True, null=True)
-    full_name = models.CharField(max_length=500, verbose_name='نام خانوادگی')
-    name = models.CharField(max_length=500, blank=True,
-                            null=True, verbose_name='نام ')
-    brithday = models.IntegerField(verbose_name='سن', blank=True, null=True)
-    place = models.CharField(
-        max_length=500, verbose_name='محل سکونت', blank=True, null=True)
+    username = models.CharField(max_length=10,null=True)
+    # my_id = models.AutoField(primary_key=True,unique=True)
+    melli = models.CharField(max_length=20,primary_key=True,unique=True, verbose_name='کدملی')
     tel = models.CharField(max_length=20, verbose_name='موبایل')
-    date = models.DateTimeField(
-        default=timezone.now, verbose_name='تاریخ عضویت')
+    serial = models.CharField(max_length=20, blank=True,null=True, verbose_name='سریال')
+    first_name = models.CharField(max_length=100, blank=True,null=True, verbose_name='نام ')
+    last_name = models.CharField(max_length=100, verbose_name='نام خانوادگی')
+    year_brithday = models.IntegerField(verbose_name='سن',blank=True,null=True)
+    place = models.CharField(max_length=500, default='ایران', verbose_name='محل سکونت')
+    date = models.DateTimeField(default=timezone.now, verbose_name='تاریخ عضویت')
     is_admin = models.BooleanField(default=False, verbose_name='کاربر ارشد')
     is_active = models.BooleanField(default=True, verbose_name='فعال')
-    is_reception = models.BooleanField(
-        default=False, blank=True, null=True, verbose_name='پذیرش')
+    is_reception = models.BooleanField(default=False, verbose_name='پذیرش')
     objects = managers.MyUserManager()
-    USERNAME_FIELD = 'serial'
-    REQUIRED_FIELDS = ('full_name', 'tel')
+    USERNAME_FIELD = 'melli'
+    REQUIRED_FIELDS = ('first_name','last_name','tel')
 
     def __str__(self):
-        return self.serial
+        return self.melli
 
     def has_perm(self, perm, obj=None):
         return True
@@ -46,7 +41,7 @@ class User(AbstractUser):
 
     date_register.short_description = "تاریخ عضویت"
 
-    @property
+    @ property
     def is_staff(self):
         return self.is_admin
 
@@ -57,10 +52,16 @@ class User(AbstractUser):
 
 
 class Images(models.Model):
-    user = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='images')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='images')
     image = models.ImageField(default='1.jpg')
+    date = models.DateTimeField(default=timezone.now, verbose_name='تاریخ ایجاد')
     objects = models.Manager()
+    
+    class Meta:
+        verbose_name='تصاویر'
+        verbose_name_plural='تصویرها'
+        
+        
 
     # @receiver(post_save, sender=User)  # add this
     # def create_user_images(sender, instance, created, **kwargs):
@@ -68,23 +69,23 @@ class Images(models.Model):
     #         Images.objects.create(user=instance)
 
     def __str__(self):
-        return self.user.serial
+        return self.user.melli
 
 
 def save_images(sender, **kwargs):
-    user = User.objects.get(serial=kwargs['instance'])
+    user = User.objects.get(melli=kwargs['instance'])
     if kwargs['created']:
-        try:
-            import json
-        except ImportError:
-            import simplejson as json
+        # try:
+        #     import json
+        # except ImportError:
+        #     import simplejson as json
         try:
             api = KavenegarAPI(
                 '4C6A7A6F556F6A68766F444466794278494C3738383433727239755636732B4831786E2B7653516C376C493D')
             params = {
                 'receptor': user.tel,
-                'token': user.serial,
-                'token2': user.serial,
+                'token': user.melli,
+                'token2': user.melli,
                 'template': 'tasnim1'
             }
             response = api.verify_lookup(params)

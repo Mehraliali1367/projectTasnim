@@ -8,21 +8,21 @@ from django.contrib.auth.models import Group
 class UserAdmin(BaseUserAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
-    list_display = ('serial', 'melli', 'full_name', 'name', 'brithday',
-                    'tel', 'place', 'date_register', 'is_admin', 'is_reception')
+    list_display = ('melli', 'last_name', 'first_name', 'year_brithday',
+                    'tel', 'place', 'date_register', 'is_active','is_admin', 'is_reception')
     list_filter = ('is_admin', 'is_reception', 'place','date')
     fieldsets = (
-        ('اطلاعات کاربر', {'fields': ('serial', 'melli', 'full_name',
-         'name', 'brithday', 'tel', 'place', 'date', 'password')}),
+        ('اطلاعات کاربر', {'fields': ('melli', 'last_name',
+         'first_name', 'year_brithday', 'tel', 'place', 'date', 'password')}),
         ('خصوصیات کاربر', {'fields': ('is_active',)}),
         ('سطح دسترسی', {'fields': ('is_admin', 'is_reception')})
     )
     add_fieldsets = (
         (None, {
-            'fields': ('serial', 'melli', 'full_name', 'name', 'brithday', 'tel', 'place', 'date', 'password1', 'password2')
+            'fields': ('melli', 'last_name', 'first_name', 'year_brithday', 'tel', 'place', 'date', 'password1', 'password2')
         }),
     )
-    search_fields = ('serial', 'is_reception', 'tel', 'melli')
+    search_fields = ('is_reception', 'is_admin','date')
     ordering = ('-date',)
     filter_horizontal = ()
 

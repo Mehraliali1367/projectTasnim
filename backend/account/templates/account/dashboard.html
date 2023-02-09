@@ -7,9 +7,9 @@
 {% endfor %}
 <form action="" method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {% if user.is_authenticated and user.is_superuser %}
+    {% if user.is_authenticated and user.is_admin %}
     {{form.as_p}}
-    {% endif %}
     <input type="submit" value="upload">
+    {% endif %}
 </form>
 {% endblock main %}

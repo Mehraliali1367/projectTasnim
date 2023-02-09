@@ -2,7 +2,7 @@
     <div class="" style="margin-left:100px;margin-right:100px">
 
     {% for message in messages %}
-        <p class="alert alert-{{message.tags}}">{{message}}</p>
+        <div class="alert alert-{{message.tags}}">{{message}}</div>
     {% endfor %}
     </div>
 {% endif %}

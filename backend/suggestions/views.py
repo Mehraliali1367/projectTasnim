@@ -2,28 +2,26 @@ from django.shortcuts import render
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import View
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import QuesModel
-
+from .models import QuesModel, ResultModel
+# from .forms import Questionform
 
 class QuestionView(LoginRequiredMixin, View):
     template_name = 'suggestions/quiz.html'
-
     def post(self, request):
         if request.method == 'POST':
+            print('*'*100)
+
             try:
+                print('1'*100)
                 questions = QuesModel.objects.all()
-
+                user = self.request.user
+                print(user)
+                print(request.POST)
+                # question=null
                 for q in questions:
-                    if request.POST.get(q.question) == 'ans_op1':
-                        q.ans_op1 = q.ans_op1+1
-                    if request.POST.get(q.question) == 'ans_op2':
-                        q.ans_op2 = q.ans_op2+1
-                    if request.POST.get(q.question) == 'ans_op3':
-                        q.ans_op3 = q.ans_op3+1
-                    if request.POST.get(q.question) == 'ans_op4':
-                        q.ans_op4 = q.ans_op4+1
-
-                    q.save()
+                    ResultModel.objects.create(
+                        question=q, user=user, ans=request.POST.get(q.question))
+                    
                 return render(request, 'suggestions/result.html')
             except:
                 return render(request, 'suggestions/error.html')
