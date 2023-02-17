@@ -5,7 +5,7 @@ services:
     image: postgres
     container_name: db
     restart: always
-    expose: 
+    expose:
       - "5432"
     networks:
       - main
@@ -17,18 +17,43 @@ services:
     volumes:
       - ./pgdata:/var/lib/postgresql/data
   backend:
+    &backend
     container_name: backend
     build: ./backend/
-#    command: bash -c "/start_prod.sh"
+    #    command: bash -c "/start_prod.sh"
     command: sh -c "python manage.py migrate && gunicorn setup.wsgi -b 0.0.0.0:8000"
     volumes:
       - ./backend/:/code
     ports:
-      - "8000:8000" 
+      - "8000:8000"
     networks:
-      - main    
+      - main
     depends_on:
       - db
+      - rabbitmq
+      - celery_worker
+  #rabbitmq service
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq
+    ports:
+      - 5672:5672
+    networks:
+      - main
+    depends_on:
+      - db
+  # Celery worker  service
+  celery_worker:
+    <<: *backend
+    container_name: celery
+    command: celery -A setup worker -l info
+    ports: []
+    networks:
+      - main
+    depends_on:
+      - rabbitmq
+      - db
+
   nginx:
     container_name: nginx
     build:
@@ -40,9 +65,11 @@ services:
       - backend
     volumes:
       - ./nginx/prod/prod.conf:/etc/nginx/nginx.conf
-      - ./backend/static:/usr/src/app/static
+      - ./backend/static:/usr/src/app/static/
     networks:
       - main
+
 networks:
   main:
     driver: bridge
+#test
