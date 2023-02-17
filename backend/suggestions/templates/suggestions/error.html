@@ -1,7 +1,10 @@
 {% extends 'inc/base.html' %} {% block main %}
 <div class="container">
-    <div class="row">
-        <h3 class="alert alert-danger text-center pl-5 pr-5 mt-3">خطایی رخداد لطفا دوباره تلاش کنیدیا با مدیریت تماس بگیرید</h3>
+        <div>
+            <h3 class="col-md-12 alert alert-danger text-center pl-5 pr-5 mt-3">خطایی رخداد لطفا دوباره تلاش کنیدیا با مدیریت تماس بگیرید</h3>
+        </div>
+        <div class="text-center">
+            <a class="btn btn-dark" href={% url 'suggestions:quiz' %}>بازگشت به نظرسنجی</a>
+        </div>
     </div>
-</div>
 {% endblock main %}

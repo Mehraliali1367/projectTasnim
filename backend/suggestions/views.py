@@ -3,26 +3,34 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import QuesModel, ResultModel
+from account.mixins import AdminAccessMixin
+from .forms import Questionform
 # from .forms import Questionform
 
-class QuestionView(LoginRequiredMixin, View):
+class QuestionView(LoginRequiredMixin,AdminAccessMixin,View):
+    form_class=Questionform
+    template_name='suggestions/create_question.html'
+    def get(self,request):
+        form=self.form_class
+        template=self.template_name
+        return render(request,template,{'form':form})
+    
+    def post(self,request):
+        pass
+class QuizView(LoginRequiredMixin, View):
     template_name = 'suggestions/quiz.html'
     def post(self, request):
         if request.method == 'POST':
-            print('*'*100)
-
             try:
-                print('1'*100)
                 questions = QuesModel.objects.all()
                 user = self.request.user
                 print(user)
                 print(request.POST)
-                # question=null
                 for q in questions:
                     ResultModel.objects.create(
                         question=q, user=user, ans=request.POST.get(q.question))
                     
-                return render(request, 'suggestions/result.html')
+                return render(request, 'suggestions/success.html')
             except:
                 return render(request, 'suggestions/error.html')
 
@@ -31,6 +39,15 @@ class QuestionView(LoginRequiredMixin, View):
         return render(request, self.template_name, {'questions': questions})
 
 
+
+class ErrorView(LoginRequiredMixin,View):
+    template_name='suggestions/error.html'
+    def get(self,request):
+        return render(request,"suggestions/error.html")
+    def post():
+        pass
+    
+    
 # https://data-flair.training/blogs/create-quiz-application-python-django/#google_vignette
 
 # from django.shortcuts import redirect,render

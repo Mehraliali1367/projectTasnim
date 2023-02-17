@@ -51,7 +51,7 @@ from django.utils import timezone
 
 # Create your models here.
 class QuesModel(models.Model):
-    question = models.CharField(max_length=500, null=True)
+    question = models.CharField(max_length=500, null=True,verbose_name='عنوان سوال')
     op1 = models.CharField(max_length=200, null=True, verbose_name='گزینه 1')
     op2 = models.CharField(max_length=200, null=True, verbose_name='گزینه 2')
     op3 = models.CharField(max_length=200, null=True, verbose_name='گزینه 3')
@@ -62,8 +62,6 @@ class QuesModel(models.Model):
         verbose_name='سوال'
         verbose_name_plural='پرسش ها'
         ordering = ['-date']
-    date = models.DateTimeField(
-        default=timezone.now, verbose_name='تاریخ ایجاد')
 
     def __str__(self):
         return self.question

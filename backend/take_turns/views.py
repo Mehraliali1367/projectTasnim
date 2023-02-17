@@ -10,7 +10,7 @@ from django.http import JsonResponse
 from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.response import Response
 from rest_framework import status
-
+from .tasks import adding
 
 class DoctorDifinit(View):
     template_name = 'take_turns/doctordifinit.html'

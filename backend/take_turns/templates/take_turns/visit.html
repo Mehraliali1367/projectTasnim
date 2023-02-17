@@ -78,7 +78,7 @@
                       checked
                     />
                     <label class="form-check-label" for="exampleRadios1">
-                      7:20
+                      دراین روز نوبتی وجود ندارد
                     </label>
                   </div>
                 </div>
@@ -150,6 +150,8 @@
   $(document).ready(function () {
     $(".on-select-example").pDatepicker({
       format: "YYYY/MM/DD",
+      calandertype:'week',
+      calandersize:2,
       onSelect: getdoctor,
     });
   });

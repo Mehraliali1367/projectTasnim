@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'django_filters',
+    'django_celery_beat',
 
 ]
 
@@ -165,3 +166,9 @@ AWS_SERVICE_NAME = 's3'
 AWS_S3_ENDPOINT_URL = 'https://s3.ir-thr-at1.arvanstorage.ir'
 AWS_S3_FILE_OVERWRITE = False
 AWS_LOCAL_STORAGE = f'{BASE_DIR}/aws/'
+
+# CSRF_TRUSTED_ORIGINS = ['https://localhost','http://localhost','http://*.localhost','http://*.127.0.0.1']
+
+# CELERY
+CELERY_BROKER_URL = 'amqp://rabbitmq:5672'
+CELERY_RESULT_BACKEND = 'rpc://'

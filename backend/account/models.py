@@ -1,8 +1,7 @@
-import jdatetime
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from . import managers
-from django.dispatch import receiver  # add this
+# from django.dispatch import receiver  # add this
 from django.db.models.signals import post_save  # add this
 from kavenegar import *
 from django.utils import timezone
@@ -54,19 +53,14 @@ class User(AbstractUser):
 class Images(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='images')
     image = models.ImageField(default='1.jpg')
+    status_sms=models.BooleanField(blank=True,null=True)
+    thumbnail=models.ImageField(default='1.jpg')
     date = models.DateTimeField(default=timezone.now, verbose_name='تاریخ ایجاد')
     objects = models.Manager()
     
     class Meta:
         verbose_name='تصاویر'
         verbose_name_plural='تصویرها'
-        
-        
-
-    # @receiver(post_save, sender=User)  # add this
-    # def create_user_images(sender, instance, created, **kwargs):
-    #     if created:
-    #         Images.objects.create(user=instance)
 
     def __str__(self):
         return self.user.melli
@@ -75,10 +69,6 @@ class Images(models.Model):
 def save_images(sender, **kwargs):
     user = User.objects.get(melli=kwargs['instance'])
     if kwargs['created']:
-        # try:
-        #     import json
-        # except ImportError:
-        #     import simplejson as json
         try:
             api = KavenegarAPI(
                 '4C6A7A6F556F6A68766F444466794278494C3738383433727239755636732B4831786E2B7653516C376C493D')
@@ -89,8 +79,12 @@ def save_images(sender, **kwargs):
                 'template': 'tasnim1'
             }
             response = api.verify_lookup(params)
-            if response:
-                pass
+            # record=Images.objects.filter(user=user)
+            # if response:
+            #     record.status=True
+            # else:
+            #     record.status=False    
+            # record.save()
         except APIException:
             pass
 
