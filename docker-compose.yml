@@ -47,7 +47,7 @@ services:
     <<: *backend
     container_name: celery
     command: celery -A setup worker -l info
-    ports: []
+      - ./backend/:/code
     networks:
       - main
     depends_on:
