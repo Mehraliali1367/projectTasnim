@@ -4,7 +4,7 @@ import time
 
 @shared_task
 def adding():
-	time.sleep(20)
+	time.sleep(5)
 	doc = Doctor(name=f"test")
 	doc.save()
 	print(doc.name)

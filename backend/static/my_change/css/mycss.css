@@ -51,7 +51,7 @@ z-index: 0 !important;
 .popup{
 background-color: #fff;
 border: 1px solid #ddd;
-border-radious: 7px;
+border-radius: 7px;
 position: fixed;
 left: 50%;
 transform: translateX(-50%)
@@ -63,7 +63,7 @@ padding: 15px 20px;
 border-bottom: 1px solid #ddd;
 }
 .popup > h4 > span.popup-close:after{
-content: "\007"
+content: "\007";
 float: right;
 cursor: pointer;
 }

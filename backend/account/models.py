@@ -9,13 +9,12 @@ from extensions.utils import jalali_converter
 
 
 class User(AbstractUser):
+    melli = models.CharField(max_length=20,unique=True, verbose_name='کدملی')
     username = models.CharField(max_length=10,null=True)
-    # my_id = models.AutoField(primary_key=True,unique=True)
-    melli = models.CharField(max_length=20,primary_key=True,unique=True, verbose_name='کدملی')
     tel = models.CharField(max_length=20, verbose_name='موبایل')
     serial = models.CharField(max_length=20, blank=True,null=True, verbose_name='سریال')
     first_name = models.CharField(max_length=100, blank=True,null=True, verbose_name='نام ')
-    last_name = models.CharField(max_length=100, verbose_name='نام خانوادگی')
+    last_name = models.CharField(max_length=100,blank=True,null=True ,verbose_name='نام خانوادگی')
     year_brithday = models.IntegerField(verbose_name='سن',blank=True,null=True)
     place = models.CharField(max_length=500, default='ایران', verbose_name='محل سکونت')
     date = models.DateTimeField(default=timezone.now, verbose_name='تاریخ عضویت')
@@ -52,10 +51,11 @@ class User(AbstractUser):
 
 class Images(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='images')
-    image = models.ImageField(default='1.jpg')
-    status_sms=models.BooleanField(blank=True,null=True)
-    thumbnail=models.ImageField(default='1.jpg')
+    image = models.ImageField(default='1.jpg',verbose_name='تصویر سایز اصلی')
+    status_sms=models.BooleanField(blank=True,null=True,verbose_name='وضعیت ارسال پیامک')
+    thumbnail=models.ImageField(default='1.jpg',verbose_name='تصویر سایز کوچک')
     date = models.DateTimeField(default=timezone.now, verbose_name='تاریخ ایجاد')
+    parttake_suggestion=models.BooleanField(null=True,blank=True,verbose_name='شرکت در نظرسنجی')
     objects = models.Manager()
     
     class Meta:

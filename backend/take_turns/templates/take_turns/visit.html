@@ -150,8 +150,8 @@
   $(document).ready(function () {
     $(".on-select-example").pDatepicker({
       format: "YYYY/MM/DD",
-      calandertype:'week',
-      calandersize:2,
+      calandertype: "week",
+      calandersize: 2,
       onSelect: getdoctor,
     });
   });
@@ -260,38 +260,54 @@
   <!-- ersal form ba axios be server -->
   form.addEventListener("submit", function (event) {
     // 1
-    event.preventDefault();
-    data_send.delete("hour");
-    data_send.delete("melli");
-    data_send.append("doctor", namedoc.options[namedoc.selectedIndex].id);
-    data_send.append("date", date_per(document.getElementById("pdate").value));
-    data_send.append("hour", document.querySelector("#hour-visit").innerText);
-    data_send.append("melli", document.getElementById("melli").value);
-    data_send.append("csrfmiddlewaretoken", "{{csrf_token}}");
-
-    axios
-      .post("/visit/", data_send) // 4<!--
-      .then((res) =>
-        Swal.fire({
-          position: "top",
-          icon: "success",
-          title:
-            " نوبت شما در روز " +
-            document.getElementById("pdate").value +
-            "ذخیره شد  ",
-          showConfirmButton: false,
-          timer: 2000,
-        })
-      ) // 5
-      .catch((errors) =>
-        Swal.fire({
-          position: "top",
-          icon: "error",
-          title: "بامشکل مواجه شدید,دوباره سعی کنید!",
-          showConfirmButton: false,
-          timer: 1500,
-        })
+    reserve_time = document.querySelector("#hour-visit").innerText;
+    if (reserve_time !== "--:--") {
+      event.preventDefault();
+      data_send.delete("hour");
+      data_send.delete("melli");
+      data_send.append("doctor", namedoc.options[namedoc.selectedIndex].id);
+      data_send.append(
+        "date",
+        date_per(document.getElementById("pdate").value)
       );
+      data_send.append("hour", document.querySelector("#hour-visit").innerText);
+      data_send.append("melli", document.getElementById("melli").value);
+      data_send.append("csrfmiddlewaretoken", "{{csrf_token}}");
+
+      axios
+        .post("/visit/", data_send) // 4<!--
+        .then((res) =>
+          Swal.fire({
+            position: "top",
+            icon: "success",
+            title:
+              " نوبت شما در روز " +
+              document.getElementById("pdate").value +
+              "ذخیره شد  ",
+            showConfirmButton: false,
+            timer: 2000,
+          })
+        ) // 5
+        .catch((errors) =>
+          Swal.fire({
+            position: "top",
+            icon: "error",
+            title: "بامشکل مواجه شدید,دوباره سعی کنید!",
+            showConfirmButton: false,
+            timer: 1500,
+          })
+        );
+
+    } else {
+      event.preventDefault();
+      Swal.fire({
+        position: "top",
+        icon: "error",
+        title: "شماباید زمان ویزیت را مشخص کنید",
+        showConfirmButton: true,
+        timer: 3000,
+      })
+    }
     data_send.delete("date");
     data_send.delete("csrfmiddlewaretoken");
   });
