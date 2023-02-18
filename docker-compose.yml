@@ -31,7 +31,7 @@ services:
     depends_on:
       - db
       - rabbitmq
-      - celery_worker
+      - celery-beat
   #rabbitmq service
   rabbitmq:
     container_name: rabbitmq
