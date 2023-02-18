@@ -17,10 +17,8 @@ services:
     volumes:
       - ./pgdata:/var/lib/postgresql/data
   backend:
-    &backend
     container_name: backend
     build: ./backend/
-    #    command: bash -c "/start_prod.sh"
     command: sh -c "python manage.py migrate && gunicorn setup.wsgi -b 0.0.0.0:8000"
     volumes:
       - ./backend/:/code
@@ -31,6 +29,7 @@ services:
     depends_on:
       - db
       - rabbitmq
+      - celery
       - celery-beat
   #rabbitmq service
   rabbitmq:
@@ -42,18 +41,35 @@ services:
       - main
     depends_on:
       - db
-  # Celery worker  service
-  celery_worker:
-    <<: *backend
-    container_name: celery
+  celery:
+    build: ./backend
+    container_name: backend_celery
     command: celery -A setup worker -l info
+    volumes:
       - ./backend/:/code
-    networks:
-      - main
+    environment:
+      - DEBUG=1
+      - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
     depends_on:
       - rabbitmq
       - db
-
+    networks:
+      - main
+  celery-beat:
+    build: ./backend
+    container_name: backend_celery_beat
+    command: celery -A setup beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    volumes:
+      - ./backend/:/code
+    environment:
+      - DEBUG=1
+      - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
+    depends_on:
+      - rabbitmq
+      - db
+    networks:
+      - main
+   
   nginx:
     container_name: nginx
     build:
@@ -72,4 +88,5 @@ services:
 networks:
   main:
     driver: bridge
+
 #test
