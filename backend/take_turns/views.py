@@ -10,9 +10,11 @@ from django.http import JsonResponse
 from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.response import Response
 from rest_framework import status
+from django.contrib.auth.mixins import LoginRequiredMixin
+from account.mixins import AdminAccessMixin
 from .tasks import adding
 
-class DoctorDifinit(View):
+class DoctorDifinit(AdminAccessMixin,LoginRequiredMixin,View):
     template_name = 'take_turns/doctordifinit.html'
     form_class = forms.DoctorForm
 
@@ -39,7 +41,7 @@ class GetDoctorApi(ListCreateAPIView):
     serializer_class = DoctorSerializer
 
 
-class PresenceDoctor(View):
+class PresenceDoctor(AdminAccessMixin,LoginRequiredMixin,View):
     template_name = 'take_turns/presencedoctor.html'
 
     def get(self, request):
@@ -69,7 +71,7 @@ class GetDoctorDateApi(ListCreateAPIView):
         return models.Presence.objects.filter(datetime_persian=self.request.GET["date"])
 
 
-class Visit(View):
+class Visit(LoginRequiredMixin,View):
     template_name = 'take_turns/visit.html'
 
     def get(self, request):
@@ -99,7 +101,7 @@ class GetHourVisitApi(ListCreateAPIView):
         return models.Visit.objects.filter(datetime_persian=self.request.GET["date"], doctor=doctor)
 
 
-class ServicesDifinit(View):
+class ServicesDifinit(AdminAccessMixin,LoginRequiredMixin,View):
     template_name = 'take_turns/services.html'
     form_class = forms.ServicesForm
 
@@ -132,7 +134,7 @@ class GetDoctors(View):
         return render(request, self.template_name)
 
 
-class DeleteDoctor(RetrieveUpdateDestroyAPIView):
+class DeleteDoctor(AdminAccessMixin,LoginRequiredMixin,RetrieveUpdateDestroyAPIView):
     serializer_class = DoctorSerializer
 
     # permission_classes = [permissions.IsAuthenticated]
@@ -145,7 +147,7 @@ class DeleteDoctor(RetrieveUpdateDestroyAPIView):
         return Response({status.HTTP_200_OK})
 
 
-class SearchTakeTurns(View):
+class SearchTakeTurns(AdminAccessMixin,LoginRequiredMixin,View):
     template_name = 'take_turns/search_take_turns.html'
     form_class = forms.SearchForm
 
@@ -157,7 +159,7 @@ class SearchTakeTurns(View):
         pass
 
 
-class GetAllTakeTurns(ListCreateAPIView):
+class GetAllTakeTurns(AdminAccessMixin,LoginRequiredMixin,ListCreateAPIView):
     queryset = models.Visit.objects.all()
     serializer_class = VisitSerializer
     search_fields = [
@@ -168,7 +170,7 @@ class GetAllTakeTurns(ListCreateAPIView):
     # }
 
 
-class DeleteTakeTurns(RetrieveUpdateDestroyAPIView):
+class DeleteTakeTurns(AdminAccessMixin,LoginRequiredMixin,RetrieveUpdateDestroyAPIView):
     serializer_class = VisitSerializer
 
     # permission_classes = [permissions.IsAuthenticated]

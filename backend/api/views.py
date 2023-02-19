@@ -9,9 +9,11 @@ from django.views import View
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import extensions.jalali as jalali
 from kavenegar import *
+from account.mixins import AdminAccessMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class Images(CreateAPIView):
+class Images(AdminAccessMixin,CreateAPIView):
     queryset = Images.objects.all()
     serializer_class = ImagesSerializer
 
@@ -47,7 +49,7 @@ class Images(CreateAPIView):
 #             return jalali.Persian(date).gregorian_string()
 
 
-class UsersList(ListAPIView):
+class UsersList(AdminAccessMixin,LoginRequiredMixin,ListAPIView):
     # filter_backends = (DynamicSearchFilter,)
     serializer_class = UserSerializer
 
@@ -101,7 +103,7 @@ def date_register(date):
 # }
 
 
-class DeleteAccount(RetrieveUpdateDestroyAPIView):
+class DeleteAccount(AdminAccessMixin,LoginRequiredMixin,RetrieveUpdateDestroyAPIView):
     serializer_class = UserSerializer
 
     # permission_classes = [permissions.IsAuthenticated]
@@ -114,7 +116,7 @@ class DeleteAccount(RetrieveUpdateDestroyAPIView):
         return Response({status.HTTP_200_OK})
 
 
-class CountUsers(View):
+class CountUsers(LoginRequiredMixin,View):
     def get(self, request):
         count = User.objects.filter(is_admin=False).count()
         return JsonResponse({'users': count})
@@ -123,7 +125,7 @@ class CountUsers(View):
         pass
 
 
-class ListUsers(ListAPIView):
+class ListUsers(AdminAccessMixin,LoginRequiredMixin,ListAPIView):
     serializer_class = UserSerializer
 
     def get_queryset(self):
@@ -139,7 +141,7 @@ class ListUsers(ListAPIView):
         return users
 
 
-class SendMessage(View):
+class SendMessage(AdminAccessMixin,LoginRequiredMixin,View):
     def get(self):
         pass
 

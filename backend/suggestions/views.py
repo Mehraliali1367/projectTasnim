@@ -7,7 +7,7 @@ from account.mixins import AdminAccessMixin
 from .forms import Questionform
 # from .forms import Questionform
 
-class QuestionView(LoginRequiredMixin,AdminAccessMixin,View):
+class QuestionView(AdminAccessMixin,LoginRequiredMixin,View):
     form_class=Questionform
     template_name='suggestions/create_question.html'
     def get(self,request):
@@ -17,7 +17,7 @@ class QuestionView(LoginRequiredMixin,AdminAccessMixin,View):
     
     def post(self,request):
         pass
-class QuizView(LoginRequiredMixin, View):
+class QuizView(AdminAccessMixin,LoginRequiredMixin, View):
     template_name = 'suggestions/quiz.html'
     def post(self, request):
         if request.method == 'POST':

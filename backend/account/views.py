@@ -50,10 +50,12 @@ class UserLogin(View):
         print(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
-            user = authenticate(request, melli=cd['melli'], password=cd['password'])
+            user = authenticate(
+                request, melli=cd['melli'], password=cd['password'])
             if user is not None:
                 login(request, user)
-                messages.success(request, f'کاربر گرامی {user.first_name} {user.last_name}', 'success')
+                messages.success(
+                    request, f'کاربر گرامی {user.first_name} {user.last_name}', 'success')
                 return redirect('core:home')
             else:
                 messages.error(request, 'خطا در ورود به سیستم', 'danger')
@@ -83,7 +85,7 @@ class UserRegister(View):
             cd = form.cleaned_data
             melli = check_serial(cd['melli'])
             if melli:
-                User.objects.create_user(cd['melli'] , cd['tel'], cd['first_name'], cd['last_name'], cd['year_brithday'],
+                User.objects.create_user(cd['melli'], cd['tel'], cd['last_name'], cd['first_name'], cd['year_brithday'],
                                          cd['password'])
                 messages.success(request, 'کاربر جدید اضافه شد', 'success')
                 return redirect('core:home')
@@ -93,7 +95,7 @@ class UserRegister(View):
         else:
             messages.error(request, 'ورودی ها را چک کنید', 'error')
             return render(request, 'account/register.html', {'form': form})
-        
+
 
 class Profile(LoginRequiredMixin, UpdateView):
     form_class = forms.ProfileForms
