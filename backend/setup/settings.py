@@ -168,7 +168,7 @@ AWS_S3_ENDPOINT_URL = 'https://s3.ir-thr-at1.arvanstorage.ir'
 AWS_S3_FILE_OVERWRITE = False
 AWS_LOCAL_STORAGE = f'{BASE_DIR}/aws/'
 
-CSRF_TRUSTED_ORIGINS = ['https://localhost','http://localhost','http://*.localhost','http://*.127.0.0.1']
+# CSRF_TRUSTED_ORIGINS = ['https://localhost','http://localhost','http://*.localhost','http://*.127.0.0.1']
 
 # CELERY
 CELERY_BROKER_URL = 'amqp://rabbitmq:5672'
