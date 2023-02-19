@@ -1,0 +1,15 @@
+[Unit]
+Description=Docker Compose Application Service
+Requires=docker.service
+After=docker.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/srv/docker
+ExecStart=/home/debian/projectTasnim/docker-compose up -d
+ExecStop=/home/debian/projectTasnim/docker-compose down
+TimeoutStartSec=0
+
+[Install]
+WantedBy=multi-user.target

@@ -25,8 +25,9 @@ SECRET_KEY = 'django-insecure-zj@(#q%ydx(+$7)rvmf_0ig@&__jcgleai$=^o$-#x))*yu&j2
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# ALLOWED_HOSTS = ['37.32.28.154']
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['37.32.28.154']
+# ALLOWED_HOSTS = ['*']
+# CSRF_TRUSTED_ORIGINS = ['https://*.tsmimg.ir', 'http://*.127.0.0.1']
 
 # Application definition
 
@@ -77,7 +78,7 @@ REST_FRAMEWORK = {
 
 
 ROOT_URLCONF = 'setup.urls'
-CSRF_TRUSTED_ORIGINS = ['https://*.tsmimg.ir', 'http://*.127.0.0.1']
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -101,14 +102,14 @@ WSGI_APPLICATION = 'setup.wsgi.application'
 
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.postgresql',
-        # 'NAME': 'amin',
-        # 'USER': 'amin',
-        # 'PASSWORD': 'amin**',
-        # 'HOST': 'db',
-        # 'PORT': '5432',
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'amin',
+        'USER': 'amin',
+        'PASSWORD': 'amin**',
+        'HOST': 'db',
+        'PORT': '5432',
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
