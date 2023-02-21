@@ -4,12 +4,18 @@ from .models import Doctor, Presence, Visit,Services
 
 class DoctorForm(forms.ModelForm):
     name = forms.CharField(label='نام پزشک', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    CHOICES= (
+        ('1','ME'),
+        ('2','YOU'),
+        ('3','WE'),
+    )
+    select = forms.ChoiceField(label='رسته پزشک',widget=forms.Select, choices=CHOICES)
 
-    # status = forms.BooleanField(label='وضعیت', widget=forms.CheckboxInput(attrs={'class': 'form-check'}))
+    status = forms.BooleanField(label='وضعیت', widget=forms.CheckboxInput(attrs={'class': 'form-check'}))
 
     class Meta:
         model = Doctor
-        fields = ('name',)
+        fields = ('name','select')
 
 
 class PresenceForm(forms.ModelForm):

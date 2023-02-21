@@ -47,6 +47,7 @@
             <th scope="col">نام</th>
             <th scope="col">نام خانوادگی</th>
             <th scope="col">کدملی</th>
+            <th scope="col">سریال</th>
             <th scope="col">تاریخ تولد</th>
             <th scope="col">موبایل</th>
             <th scope="col">تاریخ عضویت</th>
@@ -139,6 +140,7 @@
               let tdfirst_name=document.createElement("td")
               let tdlast_name=document.createElement("td")
               let tdmelli=document.createElement("td")
+              let tdserial=document.createElement("td")
               let tdbrithday=document.createElement("td")
               let tdtel=document.createElement("td")
               let tddate=document.createElement("td")
@@ -166,6 +168,7 @@
               tdfirst_name.className="align-middle"
               tdlast_name.className="align-middle"
               tdmelli.className="align-middle"
+              tdserial.className="align-middle"
               tdbrithday.className="align-middle"
               tdtel.className="align-middle"
               tddate.className="align-middle"
@@ -174,6 +177,7 @@
               tdfirst_name.textContent=item.first_name
               tdlast_name.textContent=item.last_name
               tdmelli.textContent=item.melli
+              tdserial.textContent=item.serial
               tdtel.textContent=item.tel
               tddate.textContent=item.date_register
               tdbrithday.textContent=item.year_brithday
@@ -185,6 +189,7 @@
               tr.appendChild(tdfirst_name)
               tr.appendChild(tdlast_name)
               tr.appendChild(tdmelli)
+              tr.appendChild(tdserial)
               tr.appendChild(tdbrithday)
               tr.appendChild(tdtel)
               tr.appendChild(tddate)

@@ -43,23 +43,28 @@ class UserLoginForm(forms.Form):
 
 class UserRegistrationForm(forms.Form):
     melli = forms.CharField(label='کدملی/اتباع/گذرنامه',widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'مثال: 0386022775'}))
+    serial = forms.CharField(label='سریال', required=False,disabled=False, widget=forms.TextInput(attrs={'class': 'form-control' , 'placeholder':'توسط مرکز تسنیم تکمیل میگردد'}))
     tel = forms.CharField(label='موبایل', widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'مثال: 09123541289'}))
     first_name = forms.CharField(label='نام', widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'مثال: مرتضی'}))
     last_name = forms.CharField(label='نام خانوادگی', widget=forms.TextInput(attrs = {'class': 'form-control', 'placeholder': 'مثال: حسینی'}))
     year_brithday = forms.CharField(label='سال تولد', widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'مثال: 1350'}))
     password = forms.CharField(label='رمز', widget=forms.TextInput(attrs={'class': 'form-control'}), initial="1111")
-    # place = forms.CharField(label='آدرس', widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'مثال: باجک'}),initial='قم')
-    # serial = forms.CharField(label='سریال', widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'برای وارد کردن سریال با رادیولوژی هماهنگ کنید'}))
 
-    def __init__(self, *args, **kwargs):
-        super(UserRegistrationForm, self).__init__(*args, **kwargs)
-        # self.fields['melli'].required = False
-        # self.fields['place'].required = False
+    # def __init__(self, *args, **kwargs):
+    #     user = kwargs.pop('user')
+    #     super(ProfileForms, self).__init__(*args, **kwargs)
+        
+    #     self.fields['serial'].help_text = 'این قسمت بعد از مراجعه به مرکز تسنیم توسط منشی اطلاح می شود'
+    #     self.fields['serial'].disabled = False
+    #     if not user.is_admin:
+    #         # self.fields['serial'].disabled = True
+    #         self.fields['melli'].disabled = True
+
 
 
 class UserUpdate(forms.Form):
-    # serial = forms.CharField(label='سریال', disabled=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
     melli = forms.CharField(label='کدملی/اتباع/گذرنامه', disabled=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    serial = forms.CharField(label='سریال', disabled=True, widget=forms.TextInput(attrs={'class': 'form-control' , 'palceholder':'توسط مرکز تسنیم تکمیل میگردد'}))
     first_name = forms.CharField(label='نام', widget=forms.TextInput(attrs={'class': 'form-control'}))
     last_name = forms.CharField(label='نام خانوادگی', widget=forms.TextInput(attrs={'class': 'form-control'}))
     year_brithday = forms.IntegerField(label='تاریخ تولد',widget=forms.TextInput(attrs={'class': 'normal-example form-control '}))
@@ -67,12 +72,20 @@ class UserUpdate(forms.Form):
     place = forms.CharField(label='محل سکونت', widget=forms.TextInput(attrs={'class': 'form-control'}))
 
     class Meta:
-        fields = ('melli', 'first_name', 'last_name','year_brithday', 'tel', 'place')
-
-
+        fields = ('melli','serial', 'first_name', 'last_name','year_brithday', 'tel', 'place')
+    
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user')
+        super(ProfileForms, self).__init__(*args, **kwargs)
+        
+        # self.fields['serial'].help_text = 'این قسمت بعد از مراجعه به مرکز تسنیم توسط منشی اطلاح می شود'
+        self.fields['serial'].disabled = False
+        if not user.is_admin or user.is_reception:
+            self.fields['serial'].disabled = True
+            self.fields['melli'].disabled = True
 class ProfileForms(forms.ModelForm):
-    # serial = forms.CharField(label='سریال', widget=forms.TextInput(attrs={'class': 'form-control'}))
     melli = forms.CharField(label='کدملی/اتباع/گذرنامه', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    serial = forms.CharField(label='سریال', required=False,disabled=True, widget=forms.TextInput(attrs={'class': 'form-control' , 'palceholder':'توسط مرکز تسنیم تکمیل میگردد'}))
     tel = forms.CharField(label='موبایل', widget=forms.TextInput(attrs={'class': 'form-control'}))
     first_name = forms.CharField(label='نام', widget=forms.TextInput(attrs={'class': 'form-control'}))
     last_name = forms.CharField(label='نام خانوادگی', widget=forms.TextInput(attrs={'class': 'form-control'}))
@@ -84,14 +97,17 @@ class ProfileForms(forms.ModelForm):
         user = kwargs.pop('user')
         super(ProfileForms, self).__init__(*args, **kwargs)
 
-        # self.fields['serial'].help_text = None
+        # self.fields['serial'].help_text = 'این قسمت بعد از مراجعه به مرکز تسنیم توسط منشی اطلاح می شود'
+        # self.fields['serial'].help_text = ''
         self.fields['melli'].disabled = False
-        if not user.is_admin:
+        self.fields['serial'].disabled = False
+        if not user.is_admin or user.is_reception:
+            self.fields['serial'].disabled = True
             self.fields['melli'].disabled = True
 
     class Meta:
         model = User
-        fields = ('melli', 'last_name', 'first_name','year_brithday', 'tel')
+        fields = ('melli', 'serial','last_name', 'first_name','year_brithday', 'tel')
 
 
 class ImagesForm(forms.Form):

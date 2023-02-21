@@ -22,22 +22,6 @@ def check_serial(melli):
     except:
         return False
 
-
-def melli_auto(melli):
-    try:
-        if len(str(melli)) < 6 or len(str(melli)) > 10:
-            return melli_auto("-" + str(random.randrange(1000000, 9999999)) + "-")
-
-        obj = User.objects.filter(melli=melli)
-
-        if not obj.exists():
-            return str(melli)
-        else:
-            return melli_auto("-" + str(random.randrange(1000000, 9999999)) + "-")
-    except:
-        return 1
-
-
 class UserLogin(View):
     form_class = forms.UserLoginForm
 
@@ -100,6 +84,7 @@ class UserRegister(View):
 class Profile(LoginRequiredMixin, UpdateView):
     form_class = forms.ProfileForms
     success_url = reverse_lazy('core:home')
+
     template_name = 'account/profile.html'
 
     def get_object(self):
@@ -110,6 +95,7 @@ class Profile(LoginRequiredMixin, UpdateView):
         kwargs.update({
             'user': self.request.user
         })
+        # messages.success(self.request, 'تصویر با موفقیت بارگذاری شد', 'info')
         return kwargs
 
 

@@ -19,7 +19,7 @@ class DoctorDifinit(AdminAccessMixin,LoginRequiredMixin,View):
     form_class = forms.DoctorForm
 
     def get(self, request):
-        adding.delay()
+        # adding.delay()
         return render(request, self.template_name, {'form': self.form_class})
 
     def post(self, request):
