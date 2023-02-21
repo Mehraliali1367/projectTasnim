@@ -63,8 +63,8 @@ class UserRegistrationForm(forms.Form):
 
 
 class UserUpdate(forms.Form):
-    melli = forms.CharField(label='کدملی/اتباع/گذرنامه', disabled=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    serial = forms.CharField(label='سریال', disabled=True, widget=forms.TextInput(attrs={'class': 'form-control' , 'palceholder':'توسط مرکز تسنیم تکمیل میگردد'}))
+    melli = forms.CharField(label='کدملی/اتباع/گذرنامه',  widget=forms.TextInput(attrs={'class': 'form-control'}))
+    serial = forms.CharField(label='سریال', widget=forms.TextInput(attrs={'class': 'form-control' , 'palceholder':'توسط مرکز تسنیم تکمیل میگردد'}))
     first_name = forms.CharField(label='نام', widget=forms.TextInput(attrs={'class': 'form-control'}))
     last_name = forms.CharField(label='نام خانوادگی', widget=forms.TextInput(attrs={'class': 'form-control'}))
     year_brithday = forms.IntegerField(label='تاریخ تولد',widget=forms.TextInput(attrs={'class': 'normal-example form-control '}))
@@ -79,13 +79,13 @@ class UserUpdate(forms.Form):
         super(ProfileForms, self).__init__(*args, **kwargs)
         
         # self.fields['serial'].help_text = 'این قسمت بعد از مراجعه به مرکز تسنیم توسط منشی اطلاح می شود'
-        self.fields['serial'].disabled = False
+        # self.fields['serial'].disabled = False
         if not user.is_admin or user.is_reception:
             self.fields['serial'].disabled = True
             self.fields['melli'].disabled = True
 class ProfileForms(forms.ModelForm):
     melli = forms.CharField(label='کدملی/اتباع/گذرنامه', widget=forms.TextInput(attrs={'class': 'form-control'}))
-    serial = forms.CharField(label='سریال', required=False,disabled=True, widget=forms.TextInput(attrs={'class': 'form-control' , 'palceholder':'توسط مرکز تسنیم تکمیل میگردد'}))
+    serial = forms.CharField(label='سریال', required=False, widget=forms.TextInput(attrs={'class': 'form-control' , 'palceholder':'توسط مرکز تسنیم تکمیل میگردد'}))
     tel = forms.CharField(label='موبایل', widget=forms.TextInput(attrs={'class': 'form-control'}))
     first_name = forms.CharField(label='نام', widget=forms.TextInput(attrs={'class': 'form-control'}))
     last_name = forms.CharField(label='نام خانوادگی', widget=forms.TextInput(attrs={'class': 'form-control'}))
@@ -99,11 +99,11 @@ class ProfileForms(forms.ModelForm):
 
         # self.fields['serial'].help_text = 'این قسمت بعد از مراجعه به مرکز تسنیم توسط منشی اطلاح می شود'
         # self.fields['serial'].help_text = ''
-        self.fields['melli'].disabled = False
-        self.fields['serial'].disabled = False
-        if not user.is_admin or user.is_reception:
-            self.fields['serial'].disabled = True
-            self.fields['melli'].disabled = True
+        # self.fields['melli'].disabled = False
+        # self.fields['serial'].disabled = False
+        # if not user.is_admin or user.is_reception:
+        #     self.fields['serial'].disabled = True
+        #     self.fields['melli'].disabled = True
 
     class Meta:
         model = User
