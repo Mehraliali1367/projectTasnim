@@ -16,39 +16,15 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 class Images(CreateAPIView):
     queryset = Images.objects.all()
     serializer_class = ImagesSerializer
-
-
-# ddfdfd
-
-#   '^' Starts-with search.
-#   '=' Exact matches.
-#  '@' Full-text search. (Currently only supported Django's PostgreSQL backend.)
-#  '$' Regex search.
-
-# filterset_fields = {
-#     'start_date': ['gte', 'lte', 'exact', 'gt', 'lt'],
-#     'id': ['exact'],
-#     'event_name': ['exact'],
-#     'start_time': ['exact'],
-#     'end_date': ['exact'],
-#     'end_time': ['exact'],
-#     'age_max': ['gte', 'lte', 'exact', 'gt', 'lt'],
-#     'age_min': ['gte', 'lte', 'exact', 'gt', 'lt'],
-#     'event_organizer__name': ['exact'],
-#     'event_type__name': ['exact'],
-#     'event_city__name': ['exact'], 'event_tag__name': ['exact']
-# }
-
-# class DynamicSearchFilter(filters.SearchFilter):
-#     def get_search_fields(self, view, request):
-#         list = request.GET.getlist('search_fields', [])
-#         return list
-#
-#         def date_register(date):
-#             print("*" * 100)
-#             return jalali.Persian(date).gregorian_string()
-
-
+    def get_queryset(self):
+        print('*'*200)
+        data=self.request.GET.get(data,None)
+        data2=self.request.GET.get("user",None)
+        if data:
+            print(f"data{data}")
+        if  data2:
+            print(f"data2{data2}")   
+        return super().get_queryset()
 class UsersList(AdminAccessMixin,LoginRequiredMixin,ListAPIView):
     # filter_backends = (DynamicSearchFilter,)
     serializer_class = UserSerializer
@@ -88,21 +64,6 @@ class UsersList(AdminAccessMixin,LoginRequiredMixin,ListAPIView):
 def date_register(date):
     return jalali.Persian(date).gregorian_string()
 
-
-# queryset = User.objects.all().order_by("-date")[:500]
-# queryset = User.objects.all()
-# serializer_class = UserSerializer
-# search_fields = [
-#     '^serial',
-#     '^tel',
-#     '^full_name',
-#     '^date'
-# ]
-# filterset_fields = {
-#     'date': ['lte', ]
-# }
-
-
 class DeleteAccount(AdminAccessMixin,LoginRequiredMixin,RetrieveUpdateDestroyAPIView):
     serializer_class = UserSerializer
 
@@ -114,7 +75,6 @@ class DeleteAccount(AdminAccessMixin,LoginRequiredMixin,RetrieveUpdateDestroyAPI
         user.delete()
 
         return Response({status.HTTP_200_OK})
-
 
 class CountUsers(LoginRequiredMixin,View):
     def get(self, request):
@@ -176,3 +136,34 @@ class SendMessage(AdminAccessMixin,LoginRequiredMixin,View):
             print("c" * 100)
             print(e)
             return JsonResponse({"status": 'Error'})
+
+
+# ddfdfd
+
+#   '^' Starts-with search.
+#   '=' Exact matches.
+#  '@' Full-text search. (Currently only supported Django's PostgreSQL backend.)
+#  '$' Regex search.
+
+# filterset_fields = {
+#     'start_date': ['gte', 'lte', 'exact', 'gt', 'lt'],
+#     'id': ['exact'],
+#     'event_name': ['exact'],
+#     'start_time': ['exact'],
+#     'end_date': ['exact'],
+#     'end_time': ['exact'],
+#     'age_max': ['gte', 'lte', 'exact', 'gt', 'lt'],
+#     'age_min': ['gte', 'lte', 'exact', 'gt', 'lt'],
+#     'event_organizer__name': ['exact'],
+#     'event_type__name': ['exact'],
+#     'event_city__name': ['exact'], 'event_tag__name': ['exact']
+# }
+
+# class DynamicSearchFilter(filters.SearchFilter):
+#     def get_search_fields(self, view, request):
+#         list = request.GET.getlist('search_fields', [])
+#         return list
+#
+#         def date_register(date):
+#             print("*" * 100)
+#             return jalali.Persian(date).gregorian_string()
