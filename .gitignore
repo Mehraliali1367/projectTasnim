@@ -137,6 +137,7 @@ settings.py
 Spyder project settings
 .spyderproject
 .spyproject
+./backend/sqlite3
 
 # Rope project settings
 .ropeproject
