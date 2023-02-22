@@ -11,7 +11,7 @@ from django.utils.crypto import get_random_string
 
 class User(AbstractUser):
     melli = models.CharField(max_length=20, unique=True, verbose_name='کدملی')
-    slug = models.SlugField(max_length=5,null=True,blank=True,verbose_name='آدرس کاربر')
+    slug = models.SlugField(max_length=100,null=True,blank=True,verbose_name='آدرس کاربر')
     username = models.CharField(max_length=10, null=True)
     tel = models.CharField(max_length=20, verbose_name='موبایل')
     serial = models.CharField(
@@ -23,7 +23,7 @@ class User(AbstractUser):
     year_brithday = models.IntegerField(
         verbose_name='سن', blank=True, null=True)
     place = models.CharField(
-        max_length=500, default='ایران', verbose_name='محل سکونت')
+        max_length=200, default='ایران', verbose_name='محل سکونت')
     date = models.DateTimeField(
         default=timezone.now, verbose_name='تاریخ عضویت')
     is_admin = models.BooleanField(default=False, verbose_name='کاربر ارشد')
