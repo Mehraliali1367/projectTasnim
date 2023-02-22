@@ -31,7 +31,7 @@ DEBUG = True
 
 # ALLOWED_HOSTS = ['37.32.28.154','tsmimg.ir','backend']
 ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ['https://*.tsmimg.ir', 'http://*.127.0.0.1','https://localhost','http://localhost','http://*.localhost','http://*.127.0.0.1']
+# CSRF_TRUSTED_ORIGINS = ['https://*.tsmimg.ir', 'http://*.127.0.0.1','https://localhost','http://localhost','http://*.localhost','http://*.127.0.0.1']
 
 # Application definition
 
