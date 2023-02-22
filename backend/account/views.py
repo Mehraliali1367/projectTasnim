@@ -12,7 +12,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 import random
 
 
-def check_serial(melli):
+def check_melli(melli):
     try:
         obj = User.objects.filter(melli=melli)
         if not obj:
@@ -67,9 +67,9 @@ class UserRegister(View):
         form = self.form_class(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
-            melli = check_serial(cd['melli'])
+            melli = check_melli(cd['melli'])
             if melli:
-                User.objects.create_user(cd['melli'], cd['tel'], cd['last_name'], cd['first_name'], cd['year_brithday'],
+                User.objects.create_user(cd['melli'], cd['serial'],cd['tel'], cd['last_name'], cd['first_name'], cd['year_brithday'],
                                          cd['password'])
                 messages.success(request, 'کاربر جدید اضافه شد', 'success')
                 return redirect('core:home')

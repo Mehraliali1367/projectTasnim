@@ -31,7 +31,7 @@ DEBUG = True
 
 # ALLOWED_HOSTS = ['37.32.28.154','tsmimg.ir','backend']
 ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ['https://*.tsmimg.ir', 'http://*.127.0.0.1']
+# CSRF_TRUSTED_ORIGINS = ['https://*.tsmimg.ir', 'http://*.127.0.0.1']
 
 # Application definition
 
@@ -106,14 +106,14 @@ WSGI_APPLICATION = 'setup.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'amin',
-        'USER': 'amin',
-        'PASSWORD': 'amin**',
-        'HOST': 'db',
-        'PORT': '5432',
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        # 'ENGINE': 'django.db.backends.postgresql',
+        # 'NAME': 'amin',
+        # 'USER': 'amin',
+        # 'PASSWORD': 'amin**',
+        # 'HOST': 'db',
+        # 'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -172,7 +172,7 @@ AWS_S3_ENDPOINT_URL = 'https://s3.ir-thr-at1.arvanstorage.ir'
 AWS_S3_FILE_OVERWRITE = False
 AWS_LOCAL_STORAGE = f'{BASE_DIR}/aws/'
 
-# CSRF_TRUSTED_ORIGINS = ['https://localhost','http://localhost','http://*.localhost','http://*.127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['https://localhost','http://localhost','http://*.localhost','http://*.127.0.0.1']
 
 # CELERY
 CELERY_BROKER_URL = 'amqp://rabbitmq:5672'

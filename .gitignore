@@ -129,7 +129,12 @@ env.bak/
 venv.bak/
 pythonenv*
 pgdata/
-# Spyder project settings
+# /backend/setup/settings.py
+settings
+settings.py
+/setup/settings
+/setup/settings.py
+Spyder project settings
 .spyderproject
 .spyproject
 

@@ -12,10 +12,7 @@ def serial_auto():
     except:
         return 1
 
-
-class MyUserManager(BaseUserManager):
-    def create_user(self,melli,tel, first_name, last_name, year_brithday,password):
-        # if not first_name:
+      # if not first_name:
         #     raise ValueError('کاربر باید نام داشته باشد')
         # if not last_name:
         #     raise ValueError('کاربر باید نام خانوادگی داشته باشد')
@@ -23,15 +20,17 @@ class MyUserManager(BaseUserManager):
         #     raise ValueError('کاربر باید موبایل داشته باشد')
         # if not melli:
         #     raise ValueError('کد ملی صحیح نیست یا تکراری است')
-
-        user = self.model(melli=melli , tel=tel, first_name=first_name, last_name=last_name,year_brithday=year_brithday)
-
+class MyUserManager(BaseUserManager):
+    def create_user(self, melli, serial,tel, first_name, last_name, year_brithday, password):
+        user = self.model(melli=melli, serial=serial,tel=tel, first_name=first_name,
+                          last_name=last_name, year_brithday=year_brithday)
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self,melli,tel, first_name, last_name, password):
-        user = self.create_user(melli=melli, tel=tel,first_name= first_name,last_name=last_name,year_brithday=123,password= password)
+    def create_superuser(self, melli, serial,tel, first_name, last_name, password):
+        user = self.create_user(melli=melli,serial=serial,tel=tel, first_name=first_name,
+                                last_name=last_name, year_brithday=0000, password=password)
         user.is_admin = True
         user.save(using=self._db)
         return user

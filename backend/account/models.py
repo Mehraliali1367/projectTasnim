@@ -11,7 +11,7 @@ from django.utils.crypto import get_random_string
 
 class User(AbstractUser):
     melli = models.CharField(max_length=20, unique=True, verbose_name='کدملی')
-    slug = models.SlugField(max_length=5,blank=True,verbose_name='آدرس کاربر')
+    slug = models.SlugField(max_length=5,null=True,blank=True,verbose_name='آدرس کاربر')
     username = models.CharField(max_length=10, null=True)
     tel = models.CharField(max_length=20, verbose_name='موبایل')
     serial = models.CharField(
@@ -31,7 +31,7 @@ class User(AbstractUser):
     is_reception = models.BooleanField(default=False, verbose_name='پذیرش')
     objects = managers.MyUserManager()
     USERNAME_FIELD = 'melli'
-    REQUIRED_FIELDS = ('first_name', 'last_name', 'tel')
+    REQUIRED_FIELDS = ('serial','first_name', 'last_name', 'tel')
 
     def __str__(self):
         return self.melli
