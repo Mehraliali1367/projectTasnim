@@ -13,7 +13,7 @@ from account.mixins import AdminAccessMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class Images(AdminAccessMixin,CreateAPIView):
+class Images(CreateAPIView):
     queryset = Images.objects.all()
     serializer_class = ImagesSerializer
 
