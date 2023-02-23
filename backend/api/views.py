@@ -17,7 +17,7 @@ class Images(CreateAPIView):
     print('*#'*200)
     # queryset = Images.objects.all()
     serializer_class = ImagesSerializer
-    def get_queryset(self):
+    def post(self,*args,**kwargs):
         print('*'*200)
         data=self.request.GET.get(data,None)
         data2=self.request.GET.get("user",None)
@@ -25,7 +25,8 @@ class Images(CreateAPIView):
             print(f"data{data}")
         if  data2:
             print(f"data2{data2}")   
-        return super().get_queryset()
+        return  self.create(self.request,*args,**kwargs)
+    
 class UsersList(AdminAccessMixin,LoginRequiredMixin,ListAPIView):
     # filter_backends = (DynamicSearchFilter,)
     serializer_class = UserSerializer
