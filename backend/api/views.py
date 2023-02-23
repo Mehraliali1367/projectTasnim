@@ -19,12 +19,12 @@ class Images(CreateAPIView):
     serializer_class = ImagesSerializer
     def post(self,*args,**kwargs):
         print('*'*200)
-        data=self.request.GET.get(data,None)
-        data2=self.request.GET.get("user",None)
-        if data:
-            print(f"data{data}")
+        # data=self.request.POST.get(data,None)
+        data2=self.request.POST.get("user")
+        # if data:
+        #     print(f"data{data}")
         if  data2:
-            print(f"data2{data2}")   
+            print(f"data2::::{data2}")   
         return  self.create(self.request,*args,**kwargs)
     
 class UsersList(AdminAccessMixin,LoginRequiredMixin,ListAPIView):
