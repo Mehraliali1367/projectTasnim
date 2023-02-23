@@ -19,10 +19,10 @@ class Images(CreateAPIView):
     serializer_class = ImagesSerializer
     def post(self,*args,**kwargs):
         print('*'*200)
-        # data=self.request.POST.get(data,None)
+        image=self.request.FILES["image"]
         data2=self.request.POST.get("user")
-        # if data:
-        #     print(f"data{data}")
+        if image:
+            print(f"image:::{image}")
         if  data2:
             print(f"data2::::{data2}")   
         return  self.create(self.request,*args,**kwargs)
