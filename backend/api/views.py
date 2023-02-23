@@ -13,19 +13,21 @@ from account.mixins import AdminAccessMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class Images(CreateAPIView):
+class Images(View):
     print('*#'*200)
     # queryset = Images.objects.all()
-    serializer_class = ImagesSerializer
+    # serializer_class = ImagesSerializer
     def post(self,*args,**kwargs):
         print('*'*200)
-        image=self.request.FILES["image"]
-        data2=self.request.POST.get("user")
-        if image:
-            print(f"image:::{image}")
-        if  data2:
-            print(f"data2::::{data2}")   
-        return  self.create(self.request,*args,**kwargs)
+        img=self.request.FILES["image"]
+        serial=self.request.POST.get("user")
+        if img and serial:
+            user=User.objects.filter(serial=serial)
+            Images.objects.create(user=user,image=img)
+            return  JsonResponse(status=201,data={'serial':serial,'status':'true'})
+        else:
+            return  JsonResponse(status=501,data={'error':'سرور نتوانست تصویر را ذخیره کند شاید سریال تصویر درست نمی باشد'})
+
     
 class UsersList(AdminAccessMixin,LoginRequiredMixin,ListAPIView):
     # filter_backends = (DynamicSearchFilter,)
