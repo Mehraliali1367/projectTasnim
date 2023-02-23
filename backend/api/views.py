@@ -21,14 +21,17 @@ class Images(APIView):
         img=self.request.FILES["image"]
         serial=self.request.POST.get("user")
         if img and serial:
-            user=User.objects.filter(serial=serial)
-            data_ser={'user':user,'image':img}
-            ImagesSerializer(data=data_ser)
-            return  JsonResponse(status=201,data={'serial':serial,'status':'true'})
+            try:
+                 
+                user=User.objects.get(serial=serial)
+                data_ser={'user':user,'image':img}
+                ImagesSerializer(user,data=self.request.data)
+                return  JsonResponse(status=201,data={'serial':serial,'status':'true'})
+            except :
+                return Response({"message": "Deal doesnt exist"},status=status.HTTP_400_BAD_REQUEST)
         else:
             return  JsonResponse(status=501,data={'error':'سرور نتوانست تصویر را ذخیره کند شاید سریال تصویر درست نمی باشد'})
 
-    
 class UsersList(AdminAccessMixin,LoginRequiredMixin,ListAPIView):
     # filter_backends = (DynamicSearchFilter,)
     serializer_class = UserSerializer
