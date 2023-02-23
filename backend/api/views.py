@@ -14,7 +14,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class Images(CreateAPIView):
-    queryset = Images.objects.all()
+    print('*#'*200)
+    # queryset = Images.objects.all()
     serializer_class = ImagesSerializer
     def get_queryset(self):
         print('*'*200)
