@@ -7,7 +7,7 @@ class ImagesSerializer(serializers.ModelSerializer):
     # user = serializers.CharField(source="user.serial")
     class Meta:
         model = Images
-        fields = "__all__"
+        fields = ('user','image')
 
 
 class UserSerializer(serializers.ModelSerializer):
