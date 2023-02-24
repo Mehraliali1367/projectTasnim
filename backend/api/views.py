@@ -15,7 +15,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 class Images(CreateAPIView):
     queryset = Images.objects.all()
     serializer_class = ImagesSerializer
-    # lookup_field=get_pk
+    
+    
+    def perform_create(self, serializer):
+        serializer.save(user=User.objects.get(serial=self.request.POST.get('user')))
+    
+    # lookup_field=User.objects.get()
     # def get_queryset(self):
     #     # videoName = self.kwargs['videoName']
     #     serial=self.request.POST.get("user")
