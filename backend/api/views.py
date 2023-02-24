@@ -22,10 +22,15 @@ class Images(APIView):
         serial=self.request.POST.get("user")
         if img and serial:
             try:
-                 
+                # code zir dar windows neveshteshode va bain format daste site miresad
+                #   response = requests.post(url + url_post_image, data=data, files=files, headers=headers)
                 user=User.objects.get(serial=serial)
-                data_ser={'user':user,'image':img}
-                ImagesSerializer(user,data=self.request.data)
+                # data_ser={'user':user,'image':img}
+                print(user.first_name)
+                obj=Images(user=user,image=img)
+                obj.save()
+                print(self.request.data)
+                ImagesSerializer(user.id,data=self.request.data)
                 return  JsonResponse(status=201,data={'serial':serial,'status':'true'})
             except :
                 return Response({"message": "Deal doesnt exist"},status=status.HTTP_400_BAD_REQUEST)
