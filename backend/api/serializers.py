@@ -14,6 +14,7 @@ class ImagesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Images
         fields = '__all__'
+        
             
     def create(self, validated_data):
         print('%'*100)
