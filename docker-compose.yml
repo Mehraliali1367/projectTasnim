@@ -28,47 +28,47 @@ services:
       - main
     depends_on:
       - db
-      - rabbitmq
-      - celery
-      - celery-beat
+      # - rabbitmq
+      # - celery
+      # - celery-beat
   #rabbitmq service
-  rabbitmq:
-    container_name: rabbitmq
-    image: rabbitmq
-    ports:
-      - 5672:5672
-    networks:
-      - main
-    depends_on:
-      - db
-  celery:
-    build: ./backend
-    container_name: backend_celery
-    command: celery -A setup worker -l info
-    volumes:
-      - ./backend/:/code
-    environment:
-      - DEBUG=1
-      - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
-    depends_on:
-      - rabbitmq
-      - db
-    networks:
-      - main
-  celery-beat:
-    build: ./backend
-    container_name: backend_celery_beat
-    command: celery -A setup beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
-    volumes:
-      - ./backend/:/code
-    environment:
-      - DEBUG=1
-      - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
-    depends_on:
-      - rabbitmq
-      - db
-    networks:
-      - main
+  # rabbitmq:
+  #   container_name: rabbitmq
+  #   image: rabbitmq
+  #   ports:
+  #     - 5672:5672
+  #   networks:
+  #     - main
+  #   depends_on:
+  #     - db
+  # celery:
+  #   build: ./backend
+  #   container_name: backend_celery
+  #   command: celery -A setup worker -l info
+  #   volumes:
+  #     - ./backend/:/code
+  #   environment:
+  #     - DEBUG=1
+  #     - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
+  #   depends_on:
+  #     - rabbitmq
+  #     - db
+  #   networks:
+  #     - main
+  # celery-beat:
+  #   build: ./backend
+  #   container_name: backend_celery_beat
+  #   command: celery -A setup beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
+  #   volumes:
+  #     - ./backend/:/code
+  #   environment:
+  #     - DEBUG=1
+  #     - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
+  #   depends_on:
+  #     - rabbitmq
+  #     - db
+  #   networks:
+  #     - main
    
   nginx:
     container_name: nginx
