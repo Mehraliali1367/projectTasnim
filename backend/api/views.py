@@ -18,6 +18,8 @@ class Images(CreateAPIView):
     
     
     def perform_create(self, serializer):
+        print('*'*100)
+        print(self.request.POST.get('user'))
         serializer.save(user=User.objects.get(serial=self.request.POST.get('user')))
     
     # lookup_field=User.objects.get()
