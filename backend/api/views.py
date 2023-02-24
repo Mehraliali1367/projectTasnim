@@ -17,20 +17,23 @@ class Images(APIView):
     # queryset = Images.objects.all()
     serializer_class = ImagesSerializer
     def post(self,*args,**kwargs):
-        print('*'*200)
+        print('1'*100)
         img=self.request.FILES["image"]
         serial=self.request.POST.get("user")
         if img and serial:
             try:
                 # code zir dar windows neveshteshode va bain format daste site miresad
                 #   response = requests.post(url + url_post_image, data=data, files=files, headers=headers)
+                print("2"*100)
                 user=User.objects.get(serial=serial)
                 # data_ser={'user':user,'image':img}
                 print(user.first_name)
                 obj=Images(user=user,image=img)
+                print('3'*100)
                 obj.save()
-                print(self.request.data)
-                ImagesSerializer(user.id,data=self.request.data)
+                print('4'*100)
+                # print(self.request.data)
+                # ImagesSerializer(user.id,data=self.request.data)
                 return  JsonResponse(status=201,data={'serial':serial,'status':'true'})
             except :
                 return Response({"message": "Deal doesnt exist"},status=status.HTTP_400_BAD_REQUEST)
