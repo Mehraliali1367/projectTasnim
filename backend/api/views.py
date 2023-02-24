@@ -23,8 +23,8 @@ class Images(CreateAPIView):
         try:
             result =serializer.save(user=User.objects.get_object_or_404(serial=self.request.POST.get('user')))
             print(result)
-        except:
-            print("Error serializer")
+        except Exception as err:
+            print(f"Error serializer: {err}")
             return JsonResponse(status=401,data={"error":"not found user"})    
     
     # lookup_field=User.objects.get()
