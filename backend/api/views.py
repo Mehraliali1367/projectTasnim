@@ -11,7 +11,7 @@ import extensions.jalali as jalali
 from kavenegar import *
 from account.mixins import AdminAccessMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from django.shortcuts import get_object_or_404
 class Images(CreateAPIView):
     queryset = Images.objects.all()
     serializer_class = ImagesSerializer
@@ -21,8 +21,10 @@ class Images(CreateAPIView):
         print('*'*100)
         print(self.request.POST.get('user'))
         try:
-            serializer.save(user=User.objects.get(serial=self.request.POST.get('user')))
+            result =serializer.save(user=User.objects.get_object_or_404(serial=self.request.POST.get('user')))
+            print(result)
         except:
+            print("Error serializer")
             return JsonResponse(status=401,data={"error":"not found user"})    
     
     # lookup_field=User.objects.get()
