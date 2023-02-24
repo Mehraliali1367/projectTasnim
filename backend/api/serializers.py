@@ -11,6 +11,10 @@ class ImagesSerializer(serializers.ModelSerializer):
         # for hobby in user_hobby:
         #     Hobby.objects.create(user=profile_instance,**hobby)
         # return profile_instance
+    class Meta:
+        model = Images
+        fields = '__all__'
+            
     def create(self, validated_data):
         print('%'*100)
         serial=validated_data.pop('user')
@@ -18,9 +22,7 @@ class ImagesSerializer(serializers.ModelSerializer):
         print(user)
         user=User.objects.get(serial=serial)
         return  user
-    class Meta:
-        model = Images
-        fields = ('user','image')
+    
 
 
 class UserSerializer(serializers.ModelSerializer):
