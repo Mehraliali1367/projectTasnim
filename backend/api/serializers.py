@@ -12,6 +12,7 @@ class ImagesSerializer(serializers.ModelSerializer):
         #     Hobby.objects.create(user=profile_instance,**hobby)
         # return profile_instance
     def create(self, validated_data):
+        print('%'*100)
         serial=validated_data.pop('user')
         print('&'*100)
         print(user)
