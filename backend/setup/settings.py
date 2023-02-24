@@ -31,7 +31,7 @@ DEBUG = True
 
 # ALLOWED_HOSTS = ['37.32.28.154','tsmimg.ir','backend']
 ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ['https://*.tsmimg.ir', 'http://*.127.0.0.1','https://localhost','http://localhost','http://*.localhost','http://*.127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['https://*.tsmimg.ir', 'http://*.127.0.0.1:8000','https://localhost','http://localhost','http://*.localhost','http://*.127.0.0.1:8000']
 
 # Application definition
 
@@ -106,14 +106,14 @@ WSGI_APPLICATION = 'setup.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'amin',
-        'USER': 'amin',
-        'PASSWORD': 'amin**',
-        'HOST': 'db',
-        'PORT': '5432',
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        # 'ENGINE': 'django.db.backends.postgresql',
+        # 'NAME': 'amin',
+        # 'USER': 'amin',
+        # 'PASSWORD': 'amin**',
+        # 'HOST': 'db',
+        # 'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 

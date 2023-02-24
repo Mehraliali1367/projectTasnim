@@ -20,12 +20,15 @@ class Images(CreateAPIView):
     def perform_create(self, serializer):
         print('*'*100)
         print(self.request.POST.get('user'))
-        serializer.save(user=User.objects.get(serial=self.request.POST.get('user')))
+        try:
+            serializer.save(user=User.objects.get(serial=self.request.POST.get('user')))
+        except:
+            return JsonResponse(status=401,data={"error":"not found user"})    
     
     # lookup_field=User.objects.get()
     # def get_queryset(self):
     #     # videoName = self.kwargs['videoName']
-    #     serial=self.request.POST.get("user")
+    #     serial=self.request.POST.get("user")o
     #     user=User.objects.get(serial=serial)
     #     print(user.first_name)
     #     return user
