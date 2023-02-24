@@ -51,6 +51,7 @@ class UsersList(AdminAccessMixin,LoginRequiredMixin,ListAPIView):
 
     search_fields = [
         '^melli',
+        '^serial',
         '^tel',
         '^first_name',
         '^last_name',
