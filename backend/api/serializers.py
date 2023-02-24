@@ -11,6 +11,7 @@ class ImagesSerializer(serializers.ModelSerializer):
         # for hobby in user_hobby:
         #     Hobby.objects.create(user=profile_instance,**hobby)
         # return profile_instance
+    user=serializers.SlugRelatedField(queryset=User.objects.get(serail='user'))    
     class Meta:
         model = Images
         fields = '__all__'
