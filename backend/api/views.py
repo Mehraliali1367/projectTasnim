@@ -21,7 +21,7 @@ class Images(CreateAPIView):
         print('*'*100)
         print(self.request.POST.get('user'))
         try:
-            result =serializer.save(user=User.objects.get_object_or_404(serial=self.request.POST.get('user')))
+            result =serializer.save(user=get_object_or_404(User,serial=self.request.POST.get('user')))
             print(result)
         except Exception as err:
             print(f"Error serializer: {err}")
