@@ -10,7 +10,7 @@ from rest_framework.generics import ListAPIView, ListCreateAPIView
 from .mixins import AdminAccessMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 import random
-
+from kavenegar import *
 
 def check_melli(melli):
     try:
@@ -103,18 +103,18 @@ class Dashboard(View):
     template_name = 'account/dashboard.html'
     form_class = forms.ImagesForm
 
-    def get(self, request, melli):
-        user = get_object_or_404(User, melli=melli)
+    def get(self, request, slug):
+        user = get_object_or_404(User, slug=slug)
         return render(request, self.template_name, {'user': user, 'form': self.form_class})
 
-    def post(self, request, melli):
+    def post(self, request, slug):
         form = self.form_class(request.POST, request.FILES)
         if form.is_valid():
             cd = form.cleaned_data
-            user = get_object_or_404(User, melli=melli)
+            user = get_object_or_404(User, slug=slug)
             Images.objects.create(user=user, image=cd['img'])
             messages.success(request, 'تصویر با موفقیت بارگذاری شد', 'info')
-            return redirect('account:dashboard', user.melli)
+            return redirect('account:dashboard', user.slug)
 
 
 class Edit(LoginRequiredMixin, AdminAccessMixin, UpdateView):

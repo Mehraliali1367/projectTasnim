@@ -17,7 +17,7 @@ class QuestionView(AdminAccessMixin,LoginRequiredMixin,View):
     
     def post(self,request):
         pass
-class QuizView(AdminAccessMixin,LoginRequiredMixin, View):
+class QuizView(View):
     template_name = 'suggestions/quiz.html'
     def post(self, request):
         if request.method == 'POST':

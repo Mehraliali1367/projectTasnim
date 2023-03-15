@@ -11,7 +11,8 @@ from django.utils.crypto import get_random_string
 
 class User(AbstractUser):
     melli = models.CharField(max_length=20, unique=True, verbose_name='کدملی')
-    slug = models.SlugField(max_length=100,null=True,blank=True,verbose_name='آدرس کاربر')
+    slug = models.SlugField(max_length=100, null=True,
+                            blank=True, verbose_name='آدرس کاربر')
     username = models.CharField(max_length=10, null=True)
     tel = models.CharField(max_length=20, verbose_name='موبایل')
     serial = models.CharField(
@@ -31,7 +32,7 @@ class User(AbstractUser):
     is_reception = models.BooleanField(default=False, verbose_name='پذیرش')
     objects = managers.MyUserManager()
     USERNAME_FIELD = 'melli'
-    REQUIRED_FIELDS = ('serial','first_name', 'last_name', 'tel')
+    REQUIRED_FIELDS = ('serial', 'first_name', 'last_name', 'tel')
 
     def __str__(self):
         return self.melli
@@ -68,6 +69,9 @@ class Images(models.Model):
     image = models.ImageField(default='1.jpg', verbose_name='تصویر سایز اصلی')
     status_sms = models.BooleanField(
         blank=True, null=True, verbose_name='وضعیت ارسال پیامک')
+    cost_sms=models.IntegerField(default=0,blank=True,null=True,verbose_name="قیمت ارسال پیامک")
+    msgId_sms = models.CharField(
+        max_length=15, null=True,blank=True,verbose_name='سریال پیامک ارسالی')
     thumbnail = models.ImageField(
         default='1.jpg', verbose_name='تصویر سایز کوچک')
     date = models.DateTimeField(
@@ -84,7 +88,7 @@ class Images(models.Model):
         return self.user.melli
 
 
-def save_images(sender, **kwargs):
+def save_images_dashboard(sender, **kwargs):
     user = User.objects.get(melli=kwargs['instance'])
     if kwargs['created']:
         try:
@@ -92,11 +96,30 @@ def save_images(sender, **kwargs):
                 '4C6A7A6F556F6A68766F444466794278494C3738383433727239755636732B4831786E2B7653516C376C493D')
             params = {
                 'receptor': user.tel,
-                'token': user.melli,
-                'token2': user.melli,
+                'token': user.slug,
                 'template': 'tasnim1'
             }
             response = api.verify_lookup(params)
+            record=Images.objects.filter(id=kwargs['instance'].id)
+            record.update(msgId_sms=response[0].get('messageid'))
+            record.update(status_sms=True)
+            record.update(cost_sms=response[0].get('cost'))
+        except Exception:
+            raise("خطایی رخ داد")
+
+def save_images_vote(sender, **kwargs):
+    user = User.objects.get(melli=kwargs['instance'])
+    if kwargs['created']:
+        try:
+            api = KavenegarAPI(
+                '4C6A7A6F556F6A68766F444466794278494C3738383433727239755636732B4831786E2B7653516C376C493D')
+            params = {
+                'receptor': user.tel,
+                'token': user.slug,
+                'template': 'vote'
+            }
+            response = api.verify_lookup(params)
+
             # record=Images.objects.filter(user=user)
             # if response:
             #     record.status=True
@@ -107,11 +130,12 @@ def save_images(sender, **kwargs):
             pass
 
 
-post_save.connect(save_images, sender=Images)
+post_save.connect(save_images_dashboard, sender=Images)
+# post_save.connect(save_images_vote,sender=Images)
 
 
 def slug_save(obj):
-    """ A function to generate a 5 character slug and see if it has been used and contains naughty words."""
+    """ A function to generate a 12 character slug and see if it has been used and contains naughty words."""
     if not obj.slug:  # if there isn't a slug
         obj.slug = get_random_string(12)  # create one
         slug_is_wrong = True
